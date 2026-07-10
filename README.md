@@ -5,6 +5,21 @@ Bem-vindo ao desafio técnico da Unimed.
 O objetivo deste teste é avaliar conhecimentos fundamentais necessários para o desenvolvimento de aplicações modernas, desde a modelagem de dados até a construção de uma aplicação completa utilizando boas práticas de arquitetura.
 
 ---
+# Avisos antes de começar
+- Leia com atenção este documento todo e tente seguir ao **máximo** as instruções
+- Crie um fork deste repositório no seu github **sem citar o nome da Unimed**
+- Faça seus commits no seu repositório
+- Quando finalizar envie o link do seu repositório para o e-mail **do recrutador responsável**
+- Você poderá consultar suas ferramentas habituais e até projetos particulares
+- Fique à vontade para questionar o(s) recrutador(es)
+- Fique tranquilo, respire. Boa sorte!
+
+*Corpo do e-mail com o link do repositório do desafio*
+
+- Seu nome
+- Nome do recrutador
+- Link do repositório
+---
 
 # Objetivo
 
