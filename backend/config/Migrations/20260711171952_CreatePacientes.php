@@ -29,7 +29,15 @@ class CreatePacientes extends BaseMigration
             'limit' => 255,
             'null' => true,
         ])
-        ->addTimestamps('created','modified')
+        ->addColumn('created', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
+        ->addColumn('modified', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'update' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
         ->addIndex(['cpf'],['unique' => true])
         ->create();
     }

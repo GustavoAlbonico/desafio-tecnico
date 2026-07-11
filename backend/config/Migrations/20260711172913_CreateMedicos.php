@@ -30,7 +30,15 @@ class CreateMedicos extends BaseMigration
             'limit' => 255,
             'null' => false
         ])
-        ->addTimestamps('created','modified')
+         ->addColumn('created', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
+        ->addColumn('modified', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'update' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
         ->addIndex(['crm'],['unique' => true])
         ->create();
     }

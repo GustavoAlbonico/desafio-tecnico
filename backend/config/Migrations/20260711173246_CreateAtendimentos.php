@@ -36,7 +36,15 @@ class CreateAtendimentos extends BaseMigration
         ->addColumn('medico_id','integer',[
             'null' => false
         ])
-        ->addTimestamps('created','modified')
+         ->addColumn('created', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
+        ->addColumn('modified', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'update' => 'CURRENT_TIMESTAMP',
+            'null' => false
+        ])
         ->addForeignKey(
             'paciente_id',
             'pacientes',
