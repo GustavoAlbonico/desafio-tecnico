@@ -36,6 +36,37 @@ return function (RouteBuilder $routes): void {
     $routes->scope('/api', function (RouteBuilder $builder): void {
         $builder->applyMiddleware();
         $builder->setExtensions(['json']);
+
+        $builder->connect(
+            '/pacientes',
+            ['controller' => 'Pacientes', 'action' => 'index'],
+            ['_method' => 'GET']
+        );
+
+        $builder->connect(
+            '/pacientes',
+            ['controller' => 'Pacientes', 'action' => 'add'],
+            ['_method' => 'POST']
+        );
+
+        $builder->connect(
+            '/pacientes/{id}',
+            ['controller' => 'Pacientes', 'action' => 'view'],
+            ['pass' => ['id'], '_method' => 'GET']
+        );
+
+        $builder->connect(
+            '/pacientes/{id}',
+            ['controller' => 'Pacientes', 'action' => 'edit'],
+            ['pass' => ['id'], '_method' => ['PUT', 'PATCH']]
+        );
+
+        $builder->connect(
+            '/pacientes/{id}',
+            ['controller' => 'Pacientes', 'action' => 'delete'],
+            ['pass' => ['id'], '_method' => 'DELETE']
+        );
+
     });
 
 };
