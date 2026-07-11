@@ -1,0 +1,22 @@
+[
+  { "data_atendimento": "2026-07-15", "valor_consulta": "150.00", "paciente_id": 1, "medico_id": 5 },
+  { "data_atendimento": "2026-07-15", "valor_consulta": "220.50", "paciente_id": 2, "medico_id": 12 },
+  { "data_atendimento": "2026-07-16", "valor_consulta": "180.00", "paciente_id": 3, "medico_id": 1 },
+  { "data_atendimento": "2026-07-16", "valor_consulta": "300.00", "paciente_id": 4, "medico_id": 8 },
+  { "data_atendimento": "2026-07-17", "valor_consulta": "150.00", "paciente_id": 5, "medico_id": 3 },
+  { "data_atendimento": "2026-07-17", "valor_consulta": "250.00", "paciente_id": 6, "medico_id": 15 },
+  { "data_atendimento": "2026-07-18", "valor_consulta": "190.00", "paciente_id": 7, "medico_id": 2 },
+  { "data_atendimento": "2026-07-18", "valor_consulta": "400.00", "paciente_id": 8, "medico_id": 6 },
+  { "data_atendimento": "2026-07-19", "valor_consulta": "150.00", "paciente_id": 9, "medico_id": 19 },
+  { "data_atendimento": "2026-07-19", "valor_consulta": "210.00", "paciente_id": 10, "medico_id": 4 },
+  { "data_atendimento": "2026-07-20", "valor_consulta": "280.00", "paciente_id": 11, "medico_id": 11 },
+  { "data_atendimento": "2026-07-20", "valor_consulta": "150.00", "paciente_id": 12, "medico_id": 7 },
+  { "data_atendimento": "2026-07-21", "valor_consulta": "350.00", "paciente_id": 13, "medico_id": 16 },
+  { "data_atendimento": "2026-07-21", "valor_consulta": "180.00", "paciente_id": 14, "medico_id": 13 },
+  { "data_atendimento": "2026-07-22", "valor_consulta": "200.00", "paciente_id": 15, "medico_id": 20 },
+  { "data_atendimento": "2026-07-22", "valor_consulta": "150.00", "paciente_id": 16, "medico_id": 9 },
+  { "data_atendimento": "2026-07-23", "valor_consulta": "300.00", "paciente_id": 17, "medico_id": 14 },
+  { "data_atendimento": "2026-07-23", "valor_consulta": "220.00", "paciente_id": 18, "medico_id": 10 },
+  { "data_atendimento": "2026-07-24", "valor_consulta": "150.00", "paciente_id": 19, "medico_id": 17 },
+  { "data_atendimento": "2026-07-24", "valor_consulta": "250.00", "paciente_id": 20, "medico_id": 18 }
+]
