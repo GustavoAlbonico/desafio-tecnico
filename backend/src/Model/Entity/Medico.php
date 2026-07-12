@@ -32,8 +32,13 @@ class Medico extends Entity
         'nome' => true,
         'crm' => true,
         'especialidade' => true,
-        'created' => true,
-        'modified' => true,
+        'created' => false,
+        'modified' => false,
         'atendimentos' => true,
+    ];
+
+    protected array $_hidden = [
+        'created',
+        'modified'
     ];
 }

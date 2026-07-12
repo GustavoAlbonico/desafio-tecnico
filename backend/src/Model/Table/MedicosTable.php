@@ -60,24 +60,28 @@ class MedicosTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
+       $validator
             ->scalar('nome')
-            ->maxLength('nome', 255)
-            ->requirePresence('nome', 'create')
-            ->notEmptyString('nome');
+            ->maxLength('nome', 255, 'O nome deve ter no máximo 255 caracteres.')
+            ->requirePresence('nome', 'create', 'O nome é obrigatório.')
+            ->notEmptyString('nome', 'O nome é obrigatório.');
 
         $validator
             ->scalar('crm')
-            ->maxLength('crm', 20)
-            ->requirePresence('crm', 'create')
-            ->notEmptyString('crm')
-            ->add('crm', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->maxLength('crm', 20, 'O CRM deve ter no máximo 20 caracteres.')
+            ->requirePresence('crm', 'create', 'O CRM é obrigatório.')
+            ->notEmptyString('crm', 'O CRM é obrigatório.')
+            ->add('crm', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => 'CRM já cadastrado.'
+            ]);
 
         $validator
             ->scalar('especialidade')
-            ->maxLength('especialidade', 255)
-            ->requirePresence('especialidade', 'create')
-            ->notEmptyString('especialidade');
+            ->maxLength('especialidade', 255, 'A especialidade deve ter no máximo 255 caracteres.')
+            ->requirePresence('especialidade', 'create', 'A especialidade é obrigatória.')
+            ->notEmptyString('especialidade', 'A especialidade é obrigatória.');
 
         return $validator;
     }
