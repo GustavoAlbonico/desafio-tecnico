@@ -165,6 +165,49 @@
                 }
             }
         },
+        "\/api\/pacientes\/options": {
+            "get": {
+                "operationId": "pacientes:options:get",
+                "summary": "Lista todos os pacientes com chave e valor para select",
+                "description": "",
+                "tags": [
+                    "Pacientes"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Pacientes encontrados com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "\/api\/pacientes\/{id}": {
             "get": {
                 "operationId": "pacientes:view:get",
@@ -534,37 +577,6 @@
                     "message": {
                         "type": "string"
                     }
-                },
-                "type": "object"
-            },
-            "Exception": {
-                "properties": {
-                    "code": {
-                        "example": 500,
-                        "type": "integer"
-                    },
-                    "url": {
-                        "example": "\/url\/path",
-                        "type": "string"
-                    },
-                    "message": {
-                        "example": "Internal Error",
-                        "type": "string"
-                    }
-                },
-                "xml": {
-                    "name": "response"
-                },
-                "type": "object"
-            },
-            "OperationResult": {
-                "properties": {
-                    "result": {
-                        "type": "boolean"
-                    }
-                },
-                "xml": {
-                    "name": "response"
                 },
                 "type": "object"
             },
