@@ -21,8 +21,7 @@ class PacientesRepository implements IRepository {
 
     public function findAll(): PaginatedInterface
     {
-       $pacientesDto = $this->table->find();
-       return $this->paginator->paginate($pacientesDto);
+        return $this->paginator->paginate($this->table->find());
     }
 
     public function findAllAsOptions(): array
