@@ -15,18 +15,18 @@ class PacientesController extends ApiController
     #[OpenApiPaginator(sortEnum: ['nome'])]
     #[OpenApiResponse( statusCode: '200', description: 'Pacientes encontrados com sucesso', ref: '#/components/schemas/ApiPacientesListResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function index(PacientesService $pacienteService)
+    public function index(PacientesService $pacientesService)
     {
-        $pacientes = $pacienteService->list();
+        $pacientes = $pacientesService->list();
         return $this->ok($pacientes, 'Pacientes encontrados');
     }
 
     #[OpenApiOperation(summary: 'Lista todos os pacientes com chave e valor para select')]
     #[OpenApiResponse( statusCode: '200', description: 'Pacientes encontrados com sucesso', ref: '#/components/schemas/ApiSuccessResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function options(PacientesService $pacienteService)
+    public function options(PacientesService $pacientesService)
     {
-        $pacientesAsOptions = $pacienteService->listAsOptions();
+        $pacientesAsOptions = $pacientesService->listAsOptions();
         return $this->ok($pacientesAsOptions, 'Pacientes encontrados');
     }
 
@@ -34,9 +34,9 @@ class PacientesController extends ApiController
     #[OpenApiResponse(statusCode: '200', description: 'Paciente encontrado com sucesso', ref: '#/components/schemas/ApiSuccessResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function view(PacientesService $pacienteService, int $id)
+    public function view(PacientesService $pacientesService, int $id)
     {
-        $pacienteResponse = $pacienteService->findById($id);
+        $pacienteResponse = $pacientesService->findById($id);
 
         if (!$pacienteResponse) {
             return $this->badRequest('Não foi possível encontrar o paciente!');
@@ -50,10 +50,10 @@ class PacientesController extends ApiController
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível criar o paciente', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function add(PacientesService $pacienteService)
+    public function add(PacientesService $pacientesService)
     {
         $pacienteRequest = $this->request->getData();
-        $pacienteResponse = $pacienteService->create($pacienteRequest);
+        $pacienteResponse = $pacientesService->create($pacienteRequest);
 
         if (!$pacienteResponse) {
             return $this->badRequest('Não foi possível criar o paciente!');
@@ -68,10 +68,10 @@ class PacientesController extends ApiController
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function edit(PacientesService $pacienteService, int $id)
+    public function edit(PacientesService $pacientesService, int $id)
     {
         $pacienteRequest = $this->request->getData();
-        $pacienteResponse = $pacienteService->update($id, $pacienteRequest);
+        $pacienteResponse = $pacientesService->update($id, $pacienteRequest);
 
         if (!$pacienteResponse) {
             return $this->badRequest('Não foi possível editar o paciente!');
@@ -85,9 +85,9 @@ class PacientesController extends ApiController
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o paciente', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
-    public function delete(PacientesService $pacienteService, int $id)
+    public function delete(PacientesService $pacientesService, int $id)
     {
-        $isDeleted = $pacienteService->delete($id);
+        $isDeleted = $pacientesService->delete($id);
 
         if (!$isDeleted) {
             return $this->badRequest('Não foi possível excluir o paciente!');
