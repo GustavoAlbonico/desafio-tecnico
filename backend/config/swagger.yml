@@ -64,27 +64,6 @@ components:
           schema:
             $ref: '#/components/schemas/ApiErrorResponse'
 
-    Exception:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 500
-        url:
-          type: string
-          example: /url/path
-        message:
-          type: string
-          example: Internal Error
-      xml:
-        name: response
-    OperationResult:
-      type: object
-      properties:
-        result:
-          type: boolean
-      xml:
-        name: response
 x-swagger-bake:
   components:
     schemas:

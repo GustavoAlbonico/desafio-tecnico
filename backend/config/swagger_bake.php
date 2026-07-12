@@ -65,27 +65,6 @@ return [
         'responseContentTypes' => ['application/json'],
         'hotReload' => Configure::read('debug'),
         'jsonOptions' => Configure::read('debug') ? JSON_PRETTY_PRINT : JSON_UNESCAPED_UNICODE,
-        /*
-        'editActionMethods' => ['PATCH'],
-        'requestAccepts' => [
-            'application/json',
-            'application/x-www-form-urlencoded',
-            'application/xml',
-        ],
-        'responseContentTypes' => [
-            'application/json',
-            'application/xml',
-            'application/hal+json',
-            'application/json+ld'
-        ],
-        'docType' => 'swagger',
-        'exceptionSchema' => 'Exception',
-        'namespaces' => [
-            'controllers' => ['\App\\'],
-            'entities' => ['\App\\'],
-            'tables' => ['\App\\']
-        ],
-        */
     ]
 ];
 
