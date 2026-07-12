@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\DTO\PacientesDTO;
 use App\Model\Entity\Paciente;
 use App\Model\Table\PacientesTable;
 use App\Repository\Interface\IRepository;
@@ -28,15 +27,15 @@ class PacientesRepository implements IRepository {
 
     public function findById(int $id): ?Paciente
     {
-        return $this->table->get($id, contain: ['Atendimentos']);
+        return $this->table->find()->where(['id' => $id])->first();
     }
 
-    public function create(EntityInterface $entity): bool
+    public function create(EntityInterface $entity): Paciente | bool
     {
         return $this->table->save($entity);
     }
 
-    public function update(EntityInterface $entity): bool
+    public function update(EntityInterface $entity): Paciente | bool
     {   
         return $this->table->save($entity);
     }

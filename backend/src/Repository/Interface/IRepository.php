@@ -8,8 +8,8 @@ use Cake\Datasource\Paging\PaginatedInterface;
 interface IRepository {
     public function findAll():PaginatedInterface;
     public function findById(int $id):?EntityInterface;
-    public function create(EntityInterface $entity):bool;
-    public function update(EntityInterface $entity):bool;
+    public function create(EntityInterface $entity):EntityInterface | bool;
+    public function update(EntityInterface $entity):EntityInterface | bool;
     public function delete(EntityInterface $entity):bool;
     public function patchEntity(EntityInterface $entity, array $data): EntityInterface;
 }
