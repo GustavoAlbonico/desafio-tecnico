@@ -10,7 +10,8 @@ class PacientesSeed extends BaseSeed
         $json = file_get_contents(CONFIG . 'seeds/data/pacientes.json');
         $data = json_decode($json, true);
 
-        $this->execute("DELETE FROM pacientes");
+        $exists = $this->fetchRow('SELECT 1 FROM pacientes LIMIT 1');
+        if($exists) return;
 
         $table = $this->table('pacientes');
         $table->insert($data)->save();

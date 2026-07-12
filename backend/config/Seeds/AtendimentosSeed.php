@@ -19,7 +19,8 @@ class AtendimentosSeed extends BaseSeed
         $json = file_get_contents(CONFIG . 'seeds/data/atendimentos.json');
         $data = json_decode($json, true);
 
-        $this->execute("DELETE FROM atendimentos");
+        $exists = $this->fetchRow('SELECT 1 FROM atendimentos LIMIT 1');
+        if($exists) return;
 
         $table = $this->table('atendimentos');
         $table->insert($data)->save();

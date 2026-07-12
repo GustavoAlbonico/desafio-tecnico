@@ -10,7 +10,8 @@ class MedicosSeed extends BaseSeed
         $json = file_get_contents(CONFIG . 'seeds/data/medicos.json');
         $data = json_decode($json, true);
 
-        $this->execute("DELETE FROM medicos");
+        $exists = $this->fetchRow('SELECT 1 FROM medicos LIMIT 1');
+        if($exists) return;
 
         $table = $this->table('medicos');
         $table->insert($data)->save();
