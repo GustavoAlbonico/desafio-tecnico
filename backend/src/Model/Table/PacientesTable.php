@@ -60,32 +60,37 @@ class PacientesTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->scalar('nome')
-            ->maxLength('nome', 255)
-            ->requirePresence('nome', 'create')
-            ->notEmptyString('nome');
+       $validator
+        ->scalar('nome')
+        ->maxLength('nome', 255, 'O nome deve ter no máximo 255 caracteres.')
+        ->requirePresence('nome', 'create', 'O nome é obrigatório.')
+        ->notEmptyString('nome', 'O nome é obrigatório.');
 
         $validator
             ->scalar('cpf')
-            ->maxLength('cpf', 14)
-            ->requirePresence('cpf', 'create')
-            ->notEmptyString('cpf')
-            ->add('cpf', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->maxLength('cpf', 14, 'O CPF deve ter no máximo 14 caracteres. (com mascara)')
+            ->minLength('cpf', 14, 'O CPF deve ter no minimo 14 caracteres. (com mascara)')
+            ->requirePresence('cpf', 'create', 'O CPF é obrigatório.')
+            ->notEmptyString('cpf', 'O CPF é obrigatório.')
+            ->add('cpf', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => 'CPF já cadastrado.'
+            ]);
 
         $validator
-            ->date('data_nascimento')
-            ->requirePresence('data_nascimento', 'create')
-            ->notEmptyDate('data_nascimento');
+            ->date('data_nascimento', message: 'Data de nascimento inválida.')
+            ->requirePresence('data_nascimento', 'create', 'A data de nascimento é obrigatória.')
+            ->notEmptyDate('data_nascimento', 'A data de nascimento é obrigatória.');
 
         $validator
             ->scalar('telefone')
-            ->maxLength('telefone', 45)
-            ->requirePresence('telefone', 'create')
-            ->notEmptyString('telefone');
+            ->maxLength('telefone', 45, 'O telefone deve ter no máximo 45 caracteres.')
+            ->requirePresence('telefone', 'create', 'O telefone é obrigatório.')
+            ->notEmptyString('telefone', 'O telefone é obrigatório.');
 
         $validator
-            ->email('email')
+            ->email('email', false, 'E-mail inválido.')
             ->allowEmptyString('email');
 
         return $validator;

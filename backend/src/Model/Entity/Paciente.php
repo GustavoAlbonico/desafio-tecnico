@@ -36,8 +36,13 @@ class Paciente extends Entity
         'data_nascimento' => true,
         'telefone' => true,
         'email' => true,
-        'created' => true,
-        'modified' => true,
+        'created' => false,
+        'modified' => false,
         'atendimentos' => true,
+    ];
+
+    protected array $_hidden = [
+        'created',
+        'modified'
     ];
 }
