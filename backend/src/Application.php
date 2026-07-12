@@ -30,6 +30,7 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use League\Container\ReflectionContainer;
 
 /**
  * Application setup class.
@@ -125,6 +126,10 @@ class Application extends BaseApplication
         $container->add(PacientesService::class)
             ->addArgument(PacientesRepository::class);
 
+        $container->add(\Cake\Controller\ComponentRegistry::class);
+
+        $container->delegate(new ReflectionContainer());
+
     }
 
     /**
@@ -137,9 +142,9 @@ class Application extends BaseApplication
     protected function bootstrapCli(): void
     {
         $this->addOptionalPlugin('Bake');
-
         $this->addPlugin('Migrations');
-
+        
+        $this->addPlugin('SwaggerBake');
         // Load more plugins here
     }
 }

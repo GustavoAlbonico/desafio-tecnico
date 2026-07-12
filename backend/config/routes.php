@@ -30,6 +30,7 @@ return function (RouteBuilder $routes): void {
     $routes->setRouteClass(DashedRoute::class);
 
     $routes->scope('/', function (RouteBuilder $builder): void {
+        $builder->connect('/', ['controller' => 'Swagger', 'action' => 'index']);
         $builder->fallbacks();
     });
 

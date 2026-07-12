@@ -1,0 +1,121 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: API de Atendimentos Médicos
+  description: API para gerenciamento de pacientes, médicos e atendimentos
+servers:
+  - url: http://localhost:8765
+paths:
+
+definitions:
+
+components:
+  schemas:
+    ApiPagination:
+      type: object
+      properties:
+        current_page: { type: integer, example: 1 }
+        per_page: { type: integer, example: 20 }
+        total: { type: integer, example: 200 }
+        total_pages: { type: integer, example: 10 }
+        first_page: { type: integer, example: 1 }
+        last_page: { type: integer, example: 10 }
+        has_next_page: { type: boolean, example: true }
+        has_prev_page: { type: boolean, example: false }
+
+    ApiErrorResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        message: { type: string }
+        errors:  { type: array, nullable: true, items : { type: array }, example: null}
+
+    ApiSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+
+    ApiPacientesListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Paciente"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiPacienteResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Paciente"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+    Exception:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 500
+        url:
+          type: string
+          example: /url/path
+        message:
+          type: string
+          example: Internal Error
+      xml:
+        name: response
+    OperationResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+      xml:
+        name: response
+x-swagger-bake:
+  components:
+    schemas:
+      Generic-Collection:
+        type: object
+        x-data-element: items
+        properties:
+          pagination:
+            type: object
+            properties:
+              current_page:
+                type: integer
+                example: 1
+              per_page:
+                type: integer
+                example: 5
+              total:
+                type: integer
+                example: 20
+              total_pages:
+                type: integer
+                example: 4
+              first_page:
+                type: integer
+                example: 1
+              last_page:
+                type: integer
+                example: 4
+              has_next_page:
+                type: boolean
+                example: true
+              has_prev_page:
+                type: boolean
+                example: false
