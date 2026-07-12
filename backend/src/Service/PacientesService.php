@@ -18,6 +18,10 @@ class PacientesService implements IService {
         return $this->pacientesRepository->findAll();
     }
 
+    public function listAsOptions(): array {
+        return $this->pacientesRepository->findAllAsOptions();
+    }
+
     public function findById(int $id): ?Paciente{
         return $this->pacientesRepository->findById($id);
     }

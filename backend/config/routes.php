@@ -39,6 +39,7 @@ return function (RouteBuilder $routes): void {
         $builder->setExtensions(['json']);
         
         $builder->get('/pacientes', ['controller' => 'Pacientes', 'action' => 'index']);
+        $builder->get('/pacientes/options', ['controller' => 'Pacientes', 'action' => 'options']);
         $builder->post('/pacientes', ['controller' => 'Pacientes', 'action' => 'add']);
         $builder->get('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'view'])->setPass(['id']);;
         $builder->put('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'edit'])->setPass(['id']);;

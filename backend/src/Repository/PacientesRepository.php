@@ -25,6 +25,11 @@ class PacientesRepository implements IRepository {
        return $this->paginator->paginate($pacientesDto);
     }
 
+    public function findAllAsOptions(): array
+    {
+       return $this->table->find('list')->toArray();
+    }
+
     public function findById(int $id): ?Paciente
     {
         return $this->table->find()->where(['id' => $id])->first();
