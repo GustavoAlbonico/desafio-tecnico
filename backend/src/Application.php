@@ -16,7 +16,6 @@ declare(strict_types=1);
  */
 namespace App;
 
-use App\Controller\PacientesController;
 use App\Error\ApiExceptionRenderer;
 use App\Repository\PacientesRepository;
 use App\Service\PacientesService;
@@ -27,7 +26,6 @@ use Cake\Datasource\Paging\NumericPaginator;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
-use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -118,6 +116,15 @@ class Application extends BaseApplication
      */
     public function services(ContainerInterface $container): void
     {
+
+        $container->add(NumericPaginator::class);
+
+        $container->add(PacientesRepository::class)
+            ->addArgument(NumericPaginator::class);
+
+        $container->add(PacientesService::class)
+            ->addArgument(PacientesRepository::class);
+
     }
 
     /**
