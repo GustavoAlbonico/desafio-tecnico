@@ -41,9 +41,16 @@ return function (RouteBuilder $routes): void {
         $builder->get('/pacientes', ['controller' => 'Pacientes', 'action' => 'index']);
         $builder->get('/pacientes/options', ['controller' => 'Pacientes', 'action' => 'options']);
         $builder->post('/pacientes', ['controller' => 'Pacientes', 'action' => 'add']);
-        $builder->get('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'view'])->setPass(['id']);;
-        $builder->put('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'edit'])->setPass(['id']);;
-        $builder->delete('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'delete'])->setPass(['id']);;
+        $builder->get('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'view'])->setPass(['id']);
+        $builder->put('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'edit'])->setPass(['id']);
+        $builder->delete('/pacientes/{id}', ['controller' => 'Pacientes', 'action' => 'delete'])->setPass(['id']);
+
+        $builder->get('/medicos', ['controller' => 'Medicos', 'action' => 'index']);
+        $builder->get('/medicos/options', ['controller' => 'Medicos', 'action' => 'options']);
+        $builder->post('/medicos', ['controller' => 'Medicos', 'action' => 'add']);
+        $builder->get('/medicos/{id}', ['controller' => 'Medicos', 'action' => 'view'])->setPass(['id']);
+        $builder->put('/medicos/{id}', ['controller' => 'Medicos', 'action' => 'edit'])->setPass(['id']);
+        $builder->delete('/medicos/{id}', ['controller' => 'Medicos', 'action' => 'delete'])->setPass(['id']);
 
     });
 

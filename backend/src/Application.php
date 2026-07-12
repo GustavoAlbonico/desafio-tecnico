@@ -17,7 +17,9 @@ declare(strict_types=1);
 namespace App;
 
 use App\Error\ApiExceptionRenderer;
+use App\Repository\MedicosRepository;
 use App\Repository\PacientesRepository;
+use App\Service\MedicosService;
 use App\Service\PacientesService;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
@@ -118,13 +120,27 @@ class Application extends BaseApplication
     public function services(ContainerInterface $container): void
     {
 
+        /*--- Pagination ---*/
+        
         $container->add(NumericPaginator::class);
+
+        /*--- Pacientes ---*/
 
         $container->add(PacientesRepository::class)
             ->addArgument(NumericPaginator::class);
 
         $container->add(PacientesService::class)
             ->addArgument(PacientesRepository::class);
+
+        /*--- Medicos ---*/
+
+        $container->add(MedicosRepository::class)
+            ->addArgument(NumericPaginator::class);
+
+        $container->add(MedicosService::class)
+            ->addArgument(MedicosRepository::class);
+
+        /*--- Swagger ---*/
 
         $container->add(\Cake\Controller\ComponentRegistry::class);
 
