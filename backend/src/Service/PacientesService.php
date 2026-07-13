@@ -4,14 +4,19 @@ namespace App\Service;
 
 use App\Error\Exception\EntityValidationException;
 use App\Model\Entity\Paciente;
+use App\Repository\AtendimentosRepository;
 use App\Repository\PacientesRepository;
 use App\Service\Interface\IService;
 use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\Http\Exception\ConflictException;
 use Cake\Http\Exception\NotFoundException;
 
 class PacientesService implements IService {
 
-    public function __construct(private PacientesRepository $pacientesRepository) {
+    public function __construct(
+        private PacientesRepository $pacientesRepository,
+        private AtendimentosRepository $atendimentosRepository
+    ) {
     }
 
     public function list(): PaginatedInterface{
@@ -57,6 +62,12 @@ class PacientesService implements IService {
 
         if(!$pacienteEntity){
             throw new NotFoundException("Paciente com id {$id} não encontrado, favor verificar!", 404);
+        }
+
+        $existsConflict = $this->atendimentosRepository->existsByPacienteId($id);
+
+        if($existsConflict){
+            throw new ConflictException("Não é possível excluir um paciente com atendimento relacionado!");
         }
 
         return $this->pacientesRepository->delete($pacienteEntity);

@@ -120,7 +120,8 @@ class Application extends BaseApplication
             ->addArgument(NumericPaginator::class);
 
         $container->add(PacientesService::class)
-            ->addArgument(PacientesRepository::class);
+            ->addArgument(PacientesRepository::class)
+            ->addArgument(AtendimentosRepository::class);
 
         /*--- Medicos ---*/
 
@@ -128,7 +129,8 @@ class Application extends BaseApplication
             ->addArgument(NumericPaginator::class);
 
         $container->add(MedicosService::class)
-            ->addArgument(MedicosRepository::class);
+            ->addArgument(MedicosRepository::class)
+            ->addArgument(AtendimentosRepository::class);
 
         /*--- Atendimentos ---*/
 
