@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Cake\Datasource\Paging\PaginatedResultSet;
 use Cake\Event\EventInterface;
+use Cake\Log\Log;
 
 class ApiController extends AppController
 {
@@ -30,16 +32,37 @@ class ApiController extends AppController
     ): void {
         $this->response = $this->response->withStatus($status);
 
-        $this->set([
-            'success' => true,
-            'message' => $message,
-            'data' => $data,
-        ]);
+        $pagination = [];
+        $paging = $data instanceof PaginatedResultSet ? $data->pagingParams() : null;
+
+        if($paging){
+            $pagination = [
+                'pagination' => [
+                    'current_page' => $paging['currentPage'],
+                    'per_page' => $paging['perPage'],
+                    'total' => $paging['totalCount'],
+                    'total_pages' => $paging['pageCount'],
+                    'first_page' => $paging['start'],
+                    'last_page' => $paging['end'],
+                    'has_next_page' => $paging['hasNextPage'],
+                    'has_prev_page' => $paging['hasPrevPage']
+                ]
+            ];
+       }
+
+        $this->set(array_merge(
+            [
+                'success' => true,
+                'message' => $message,
+                'data' => $data,
+            ],
+            $pagination
+        ));
 
         $this->viewBuilder()->setOption(
             'serialize',
-            ['success', 'message', 'data']
-        );
+            ['success', 'message', 'data','pagination']
+        )->setOption('jsonOptions', JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     protected function error(
@@ -48,6 +71,8 @@ class ApiController extends AppController
         int $status = 500
     ): void {
         $this->response = $this->response->withStatus($status);
+
+        Log::error($message, [$status,$errors]);
 
         $this->set([
             'success' => false,
@@ -58,7 +83,7 @@ class ApiController extends AppController
         $this->viewBuilder()->setOption(
             'serialize',
             ['success', 'message', 'errors']
-        );
+        )->setOption('jsonOptions', JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     protected function ok(
