@@ -52,6 +52,12 @@ return function (RouteBuilder $routes): void {
         $builder->put('/medicos/{id}', ['controller' => 'Medicos', 'action' => 'edit'])->setPass(['id']);
         $builder->delete('/medicos/{id}', ['controller' => 'Medicos', 'action' => 'delete'])->setPass(['id']);
 
+        $builder->get('/atendimentos', ['controller' => 'Atendimentos', 'action' => 'index']);
+        $builder->post('/atendimentos', ['controller' => 'Atendimentos', 'action' => 'add']);
+        $builder->get('/atendimentos/{id}', ['controller' => 'Atendimentos', 'action' => 'view'])->setPass(['id']);
+        $builder->put('/atendimentos/{id}', ['controller' => 'Atendimentos', 'action' => 'edit'])->setPass(['id']);
+        $builder->delete('/atendimentos/{id}', ['controller' => 'Atendimentos', 'action' => 'delete'])->setPass(['id']);
+
     });
 
 };

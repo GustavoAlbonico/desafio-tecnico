@@ -17,8 +17,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Error\ApiExceptionRenderer;
+use App\Repository\AtendimentosRepository;
 use App\Repository\MedicosRepository;
 use App\Repository\PacientesRepository;
+use App\Service\AtendimentosService;
 use App\Service\MedicosService;
 use App\Service\PacientesService;
 use Cake\Core\Configure;
@@ -83,28 +85,16 @@ class Application extends BaseApplication
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
         $middlewareQueue
-            // Catch any exceptions in the lower layers,
-            // and make an error page/response
           ->add(
                 new ErrorHandlerMiddleware(
                     ['exceptionRenderer' => ApiExceptionRenderer::class] + Configure::read('Error'),
                     $this
                 )
             )
-            // Handle plugin/theme assets like CakePHP normally does.
             ->add(new AssetMiddleware([
                 'cacheTime' => Configure::read('Asset.cacheTime'),
             ]))
-
-            // Add routing middleware.
-            // If you have a large number of routes connected, turning on routes
-            // caching in production could improve performance.
-            // See https://github.com/CakeDC/cakephp-cached-routing
             ->add(new RoutingMiddleware($this))
-
-            // Parse various types of encoded request bodies so that they are
-            // available as array through $request->getData()
-            // https://book.cakephp.org/4/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware());
 
         return $middlewareQueue;
@@ -121,7 +111,7 @@ class Application extends BaseApplication
     {
 
         /*--- Pagination ---*/
-        
+
         $container->add(NumericPaginator::class);
 
         /*--- Pacientes ---*/
@@ -139,6 +129,14 @@ class Application extends BaseApplication
 
         $container->add(MedicosService::class)
             ->addArgument(MedicosRepository::class);
+
+        /*--- Atendimentos ---*/
+
+        $container->add(AtendimentosRepository::class)
+            ->addArgument(NumericPaginator::class);
+
+        $container->add(AtendimentosService::class)
+            ->addArgument(AtendimentosRepository::class);
 
         /*--- Swagger ---*/
 
@@ -159,8 +157,6 @@ class Application extends BaseApplication
     {
         $this->addOptionalPlugin('Bake');
         $this->addPlugin('Migrations');
-        
         $this->addPlugin('SwaggerBake');
-        // Load more plugins here
     }
 }

@@ -67,26 +67,28 @@ class AtendimentosTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->date('data_atendimento')
-            ->requirePresence('data_atendimento', 'create')
-            ->notEmptyDate('data_atendimento');
+            ->date('data_atendimento', ['ymd'], 'A data do atendimento deve ser uma data válida.')
+            ->requirePresence('data_atendimento', 'create', 'A data do atendimento é obrigatória.')
+            ->notEmptyDate('data_atendimento', 'A data do atendimento é obrigatória.');
 
         $validator
-            ->decimal('valor_consulta')
-            ->requirePresence('valor_consulta', 'create')
-            ->notEmptyString('valor_consulta');
+            ->decimal('valor_consulta', null, 'O valor da consulta deve ser um número decimal válido.')
+            ->requirePresence('valor_consulta', 'create', 'O valor da consulta é obrigatório.')
+            ->notEmptyString('valor_consulta', 'O valor da consulta é obrigatório.');
 
         $validator
-            ->integer('status')
-            ->notEmptyString('status');
+            ->integer('status', 'O status deve ser um número inteiro.')
+            ->notEmptyString('status', 'O status é obrigatório.');
 
         $validator
-            ->integer('paciente_id')
-            ->notEmptyString('paciente_id');
+            ->integer('paciente_id', 'O paciente informado é inválido.')
+            ->requirePresence('paciente_id', 'create', 'O paciente é obrigatório.')
+            ->notEmptyString('paciente_id', 'O paciente é obrigatório.');
 
         $validator
-            ->integer('medico_id')
-            ->notEmptyString('medico_id');
+            ->integer('medico_id', 'O médico informado é inválido.')
+            ->requirePresence('medico_id', 'create', 'O médico é obrigatório.')
+            ->notEmptyString('medico_id', 'O médico é obrigatório.');
 
         return $validator;
     }
@@ -100,8 +102,15 @@ class AtendimentosTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['paciente_id'], 'Pacientes'), ['errorField' => 'paciente_id']);
-        $rules->add($rules->existsIn(['medico_id'], 'Medicos'), ['errorField' => 'medico_id']);
+        $rules->add(
+            $rules->existsIn(['paciente_id'], 'Pacientes'),
+            ['errorField' => 'paciente_id', 'message' => 'Paciente não encontrado.']
+        );
+
+        $rules->add(
+            $rules->existsIn(['medico_id'], 'Medicos'),
+            ['errorField' => 'medico_id', 'message' => 'Médico não encontrado.']
+        );
 
         return $rules;
     }

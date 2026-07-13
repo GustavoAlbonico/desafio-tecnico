@@ -37,9 +37,14 @@ class Atendimento extends Entity
         'status' => true,
         'paciente_id' => true,
         'medico_id' => true,
-        'created' => true,
-        'modified' => true,
+        'created' => false,
+        'modified' => false,
         'paciente' => true,
         'medico' => true,
+    ];
+
+    protected array $_hidden = [
+        'created',
+        'modified'
     ];
 }
