@@ -870,6 +870,21 @@
                             }
                         }
                     },
+                    "409": {
+                        "description": "N\u00e3o \u00e9 poss\u00edvel excluir o registro pois existem dados relacionados",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Ocorreu um erro inesperado",
                         "content": {
@@ -1318,6 +1333,21 @@
                     },
                     "404": {
                         "description": "Paciente n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "N\u00e3o \u00e9 poss\u00edvel excluir o registro pois existem dados relacionados",
                         "content": {
                             "application\/json": {
                                 "schema": {

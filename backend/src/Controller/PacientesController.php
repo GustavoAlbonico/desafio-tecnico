@@ -84,6 +84,7 @@ class PacientesController extends ApiController
     #[OpenApiResponse(statusCode: '200', description: 'Paciente removido com sucesso', ref: '#/components/schemas/ApiPacienteResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o paciente', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '409', description: 'Não é possível excluir o registro pois existem dados relacionados', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function delete(PacientesService $pacientesService, int $id)
     {
