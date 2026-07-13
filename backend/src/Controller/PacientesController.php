@@ -31,7 +31,7 @@ class PacientesController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Busca um paciente pelo ID')]
-    #[OpenApiResponse(statusCode: '200', description: 'Paciente encontrado com sucesso', ref: '#/components/schemas/ApiSuccessResponse')]
+    #[OpenApiResponse(statusCode: '200', description: 'Paciente encontrado com sucesso', ref: '#/components/schemas/ApiPacienteResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function view(PacientesService $pacientesService, int $id)

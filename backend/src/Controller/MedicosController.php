@@ -32,7 +32,7 @@ class MedicosController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Busca um médico pelo ID')]
-    #[OpenApiResponse(statusCode: '200', description: 'Médicos encontrado com sucesso', ref: '#/components/schemas/ApiSuccessResponse')]
+    #[OpenApiResponse(statusCode: '200', description: 'Médicos encontrado com sucesso', ref: '#/components/schemas/ApiMedicosResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Médicos não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function view(MedicosService $medicosService, int $id)
