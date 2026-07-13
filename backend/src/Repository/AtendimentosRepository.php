@@ -13,6 +13,8 @@ use Cake\ORM\TableRegistry;
 class AtendimentosRepository implements IRepository {
 
     private AtendimentosTable $table;
+    private array $paginate;
+    private array $filters;
 
     public function __construct(private NumericPaginator $paginator)
     {
@@ -29,12 +31,13 @@ class AtendimentosRepository implements IRepository {
             'valor_consulta',
             'status'
         ])
+        ->where($this->filters)
         ->contain([
             'Medicos' =>['fields' => ['id','nome']],
             'Pacientes' =>[ 'fields' => ['id','nome']]
         ]);
 
-        return $this->paginator->paginate($query);
+        return $this->paginator->paginate($query,$this->paginate);
     }
 
     public function findById(int $id): ?Atendimento
@@ -72,5 +75,15 @@ class AtendimentosRepository implements IRepository {
 
     public function existsByMedicoId(int $id) : bool {
         return $this->table->exists(['medico_id' => $id]);
+    }
+
+    public function paginate(array $paginate):self{
+        $this->paginate = $paginate;
+        return $this;
+    }
+
+    public function filters(array $filters):self{
+        $this->filters = $filters;
+        return $this;
     }
 }

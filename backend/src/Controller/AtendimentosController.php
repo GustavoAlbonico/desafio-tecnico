@@ -12,12 +12,19 @@ use SwaggerBake\Lib\Attribute\OpenApiResponse;
 class AtendimentosController extends ApiController
 {
     #[OpenApiOperation(summary: 'Lista todos os atendimentos cadastrados')]
-    #[OpenApiPaginator(sortEnum: ['nome'])]
+    #[OpenApiPaginator(sortEnum: ['data_nascimento'])]
     #[OpenApiResponse( statusCode: '200', description: 'Atendimentos encontrados com sucesso', ref: '#/components/schemas/ApiAtendimentosListResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(AtendimentosService $atendimentosService)
     {
-        $atendimentos = $atendimentosService->list();
+        $paginateParams =  $this->getPaginateParams();
+        $filtersParams =  $this->getFiltersParams();
+
+        $atendimentos = $atendimentosService
+            ->filters($filtersParams)
+            ->paginate($paginateParams)
+            ->list();
+
         return $this->ok($atendimentos, 'Atendimentos encontrados');
     }
 
@@ -85,5 +92,25 @@ class AtendimentosController extends ApiController
         }
 
         return $this->ok(message: 'Atendimento excluído com sucesso!');
+    }
+
+    private function getPaginateParams():array {
+        return [
+            'page' => $this->request->getQuery('page') ?: 1,
+            'sort' => $this->request->getQuery('sort') ?: 'data_atendimento',
+            'direction' => $this->request->getQuery('direction') ?: 'DESC',
+            'limit' => $this->request->getQuery('limit') ?: 20
+        ];
+    }
+
+    private function getFiltersParams():array {
+
+        $medicoId = $this->request->getQuery('medico_id') ?: null;
+        $pacienteId = $this->request->getQuery('paciente_id') ?: null;
+
+        return  array_filter([
+            'Atendimentos.medico_id' => $medicoId,
+            'Atendimentos.paciente_id' => $pacienteId,
+        ]);
     }
 }

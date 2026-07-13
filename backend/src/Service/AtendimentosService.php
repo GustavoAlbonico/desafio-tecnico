@@ -11,11 +11,17 @@ use Cake\Http\Exception\NotFoundException;
 
 class AtendimentosService implements IService {
 
+    private array $paginate;
+    private array $filters;
+
     public function __construct(private AtendimentosRepository $atendimentosRepository) {
     }
 
     public function list(): PaginatedInterface{
-        return $this->atendimentosRepository->findAll();
+        return $this->atendimentosRepository
+            ->filters($this->filters)
+            ->paginate($this->paginate)
+            ->findAll();
     }
 
     public function findById(int $id): ?Atendimento{
@@ -56,5 +62,15 @@ class AtendimentosService implements IService {
         }
 
         return $this->atendimentosRepository->delete($atendimentoEntity);
+    }
+
+    public function paginate(array $paginate):self{
+        $this->paginate = $paginate;
+        return $this;
+    }
+
+    public function filters(array $filters):self{
+        $this->filters = $filters;
+        return $this;
     }
 }
