@@ -11,6 +11,424 @@
         }
     ],
     "paths": {
+        "\/api\/atendimentos": {
+            "get": {
+                "operationId": "atendimentos:index:get",
+                "summary": "Lista todos os atendimentos cadastrados",
+                "description": "",
+                "tags": [
+                    "Atendimentos"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorPage"
+                    },
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorLimit"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sort",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "nome"
+                            ]
+                        }
+                    },
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorDirection"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atendimentos encontrados com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiAtendimentosListResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "atendimentos:add:post",
+                "summary": "Cadastra um novo atendimento",
+                "description": "",
+                "tags": [
+                    "Atendimentos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "required": [
+                                    "data_atendimento",
+                                    "valor_consulta",
+                                    "paciente_id",
+                                    "medico_id"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#\/components\/schemas\/Atendimento"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": "Atendimento criado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiAtendimentoResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel criar o atendimento",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dados inv\u00e1lidos",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/atendimentos\/{id}": {
+            "get": {
+                "operationId": "atendimentos:view:get",
+                "summary": "Busca um atendimento pelo ID",
+                "description": "",
+                "tags": [
+                    "Atendimentos"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atendimento encontrado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiAtendimentoResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Atendimento n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "atendimentos:edit:put",
+                "summary": "Atualiza um atendimento existente",
+                "description": "",
+                "tags": [
+                    "Atendimentos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "required": [
+                                    "data_atendimento",
+                                    "valor_consulta",
+                                    "paciente_id",
+                                    "medico_id"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#\/components\/schemas\/Atendimento"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atendimento editado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiAtendimentoResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel editar o atendimento",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Atendimento n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dados inv\u00e1lidos",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "atendimentos:delete:delete",
+                "summary": "Remove um atendimento",
+                "description": "",
+                "tags": [
+                    "Atendimentos"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atendimento removido com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiAtendimentoResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel excluir o atendimento",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Atendimento n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "\/api\/medicos": {
             "get": {
                 "operationId": "medicos:index:get",
@@ -234,7 +652,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                                            "$ref": "#\/components\/schemas\/ApiMedicosResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -274,8 +692,8 @@
                     }
                 }
             },
-            "patch": {
-                "operationId": "medicos:edit:patch",
+            "put": {
+                "operationId": "medicos:edit:put",
                 "summary": "Atualiza um m\u00e9dico existente",
                 "description": "",
                 "tags": [
@@ -694,7 +1112,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                                            "$ref": "#\/components\/schemas\/ApiPacienteResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -734,8 +1152,8 @@
                     }
                 }
             },
-            "patch": {
-                "operationId": "pacientes:edit:patch",
+            "put": {
+                "operationId": "pacientes:edit:put",
                 "summary": "Atualiza um paciente existente",
                 "description": "",
                 "tags": [
@@ -935,6 +1353,43 @@
     "definitions": null,
     "components": {
         "schemas": {
+            "ApiAtendimentoResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "$ref": "#\/components\/schemas\/Atendimento"
+                            }
+                        }
+                    }
+                ],
+                "description": "Ocorreu um erro inesperado"
+            },
+            "ApiAtendimentosListResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#\/components\/schemas\/AtendimentoListItem"
+                                }
+                            },
+                            "pagination": {
+                                "$ref": "#\/components\/schemas\/ApiPagination"
+                            }
+                        }
+                    }
+                ]
+            },
             "ApiErrorResponse": {
                 "properties": {
                     "success": {
@@ -1097,6 +1552,66 @@
                 },
                 "type": "object"
             },
+            "Atendimento": {
+                "properties": {
+                    "id": {
+                        "minLength": 1,
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "data_atendimento": {
+                        "minLength": 1,
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "valor_consulta": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "status": {
+                        "minLength": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "paciente_id": {
+                        "minLength": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "medico_id": {
+                        "minLength": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object",
+                "description": ""
+            },
+            "AtendimentoListItem": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "data_atendimento": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "valor_consulta": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "paciente": {
+                        "$ref": "#\/components\/schemas\/PacienteResumo"
+                    },
+                    "medico": {
+                        "$ref": "#\/components\/schemas\/MedicoResumo"
+                    }
+                },
+                "type": "object"
+            },
             "Medico": {
                 "properties": {
                     "id": {
@@ -1123,6 +1638,17 @@
                 },
                 "type": "object",
                 "description": ""
+            },
+            "MedicoResumo": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             },
             "Paciente": {
                 "properties": {
@@ -1159,6 +1685,17 @@
                 },
                 "type": "object",
                 "description": ""
+            },
+            "PacienteResumo": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             }
         }
     },

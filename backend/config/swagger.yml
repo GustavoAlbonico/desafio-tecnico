@@ -11,6 +11,39 @@ definitions:
 
 components:
   schemas:
+    PacienteResumo:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+
+    MedicoResumo:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+
+    AtendimentoListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        data_atendimento:
+          type: string
+          format: date
+        valor_consulta:
+          type: string
+        status:
+          type: integer
+        paciente:
+          $ref: "#/components/schemas/PacienteResumo"
+        medico:
+          $ref: "#/components/schemas/MedicoResumo"
+          
     ApiPagination:
       type: object
       properties:
@@ -95,6 +128,31 @@ components:
           properties:
             data:
               $ref: "#/components/schemas/Medico"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+    ApiAtendimentosListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/AtendimentoListItem"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiAtendimentoResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Atendimento"
       description: Ocorreu um erro inesperado
       content:
         application/json:

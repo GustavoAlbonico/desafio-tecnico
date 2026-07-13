@@ -3,17 +3,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+
 use App\Service\AtendimentosService;
+use SwaggerBake\Lib\Attribute\OpenApiOperation;
+use SwaggerBake\Lib\Attribute\OpenApiPaginator;
+use SwaggerBake\Lib\Attribute\OpenApiResponse;
 
 class AtendimentosController extends ApiController
 {
-
+    #[OpenApiOperation(summary: 'Lista todos os atendimentos cadastrados')]
+    #[OpenApiPaginator(sortEnum: ['nome'])]
+    #[OpenApiResponse( statusCode: '200', description: 'Atendimentos encontrados com sucesso', ref: '#/components/schemas/ApiAtendimentosListResponse' )]
+    #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(AtendimentosService $atendimentosService)
     {
         $atendimentos = $atendimentosService->list();
         return $this->ok($atendimentos, 'Atendimentos encontrados');
     }
 
+    #[OpenApiOperation(summary: 'Busca um atendimento pelo ID')]
+    #[OpenApiResponse(statusCode: '200', description: 'Atendimento encontrado com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
+    #[OpenApiResponse(statusCode: '404', description: 'Atendimento não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function view(AtendimentosService $atendimentosService, int $id)
     {
         $atendimentoResponse = $atendimentosService->findById($id);
@@ -25,6 +36,11 @@ class AtendimentosController extends ApiController
         return $this->ok($atendimentoResponse, 'Atendimento encontrado');
     }
 
+    #[OpenApiOperation(summary: 'Cadastra um novo atendimento')]
+    #[OpenApiResponse(statusCode: '201', description: 'Atendimento criado com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
+    #[OpenApiResponse(statusCode: '400', description: 'Não foi possível criar o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function add(AtendimentosService $atendimentosService)
     {
         $atendimentoRequest = $this->request->getData();
@@ -37,6 +53,12 @@ class AtendimentosController extends ApiController
         return $this->created($atendimentoResponse, 'Atendimento criado com sucesso!');
     }
 
+    #[OpenApiOperation(summary: 'Atualiza um atendimento existente')]
+    #[OpenApiResponse(statusCode: '200', description: 'Atendimento editado com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
+    #[OpenApiResponse(statusCode: '400', description: 'Não foi possível editar o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '404', description: 'Atendimento não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function edit(AtendimentosService $atendimentosService, int $id)
     {
         $atendimentoRequest = $this->request->getData();
@@ -49,6 +71,11 @@ class AtendimentosController extends ApiController
         return $this->ok($atendimentoResponse, 'Atendimento editado com sucesso!');
     }
 
+    #[OpenApiOperation(summary: 'Remove um atendimento')]
+    #[OpenApiResponse(statusCode: '200', description: 'Atendimento removido com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
+    #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '404', description: 'Atendimento não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function delete(AtendimentosService $atendimentosService, int $id)
     {
         $isDeleted = $atendimentosService->delete($id);
