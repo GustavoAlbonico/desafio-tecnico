@@ -33,12 +33,34 @@
                         "schema": {
                             "type": "string",
                             "enum": [
-                                "nome"
+                                "data_nascimento",
+                                "valor_consulta",
+                                "status",
+                                "paciente_id",
+                                "medico_id"
                             ]
                         }
                     },
                     {
                         "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorDirection"
+                    },
+                    {
+                        "in": "query",
+                        "name": "paciente_id",
+                        "description": "Filtra por paciente",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "medico_id",
+                        "description": "Filtra por m\u00e9dico",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -1551,14 +1573,6 @@
                         "example": 10,
                         "type": "integer"
                     },
-                    "first_page": {
-                        "example": 1,
-                        "type": "integer"
-                    },
-                    "last_page": {
-                        "example": 10,
-                        "type": "integer"
-                    },
                     "has_next_page": {
                         "example": true,
                         "type": "boolean"
@@ -1951,14 +1965,6 @@
                                     "example": 20
                                 },
                                 "total_pages": {
-                                    "type": "integer",
-                                    "example": 4
-                                },
-                                "first_page": {
-                                    "type": "integer",
-                                    "example": 1
-                                },
-                                "last_page": {
                                     "type": "integer",
                                     "example": 4
                                 },

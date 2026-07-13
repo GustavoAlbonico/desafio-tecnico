@@ -4,15 +4,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
+use OpenApi\Attributes as OA;
 use App\Service\AtendimentosService;
 use SwaggerBake\Lib\Attribute\OpenApiOperation;
 use SwaggerBake\Lib\Attribute\OpenApiPaginator;
+use SwaggerBake\Lib\Attribute\OpenApiQueryParam;
 use SwaggerBake\Lib\Attribute\OpenApiResponse;
 
 class AtendimentosController extends ApiController
 {
     #[OpenApiOperation(summary: 'Lista todos os atendimentos cadastrados')]
-    #[OpenApiPaginator(sortEnum: ['data_nascimento'])]
+
+    #[OpenApiQueryParam(name: 'paciente_id',type: 'integer',description: 'Filtra por paciente')]
+    #[OpenApiQueryParam(name: 'medico_id', type: 'integer',description: 'Filtra por médico')]
+    #[OpenApiPaginator(sortEnum: ['data_nascimento','valor_consulta','status','paciente_id','medico_id'])]
     #[OpenApiResponse( statusCode: '200', description: 'Atendimentos encontrados com sucesso', ref: '#/components/schemas/ApiAtendimentosListResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(AtendimentosService $atendimentosService)

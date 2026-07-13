@@ -51,8 +51,6 @@ components:
         per_page: { type: integer, example: 20 }
         total: { type: integer, example: 200 }
         total_pages: { type: integer, example: 10 }
-        first_page: { type: integer, example: 1 }
-        last_page: { type: integer, example: 10 }
         has_next_page: { type: boolean, example: true }
         has_prev_page: { type: boolean, example: false }
 
@@ -179,12 +177,6 @@ x-swagger-bake:
                 type: integer
                 example: 20
               total_pages:
-                type: integer
-                example: 4
-              first_page:
-                type: integer
-                example: 1
-              last_page:
                 type: integer
                 example: 4
               has_next_page:
