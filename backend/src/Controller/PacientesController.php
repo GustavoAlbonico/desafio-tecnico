@@ -22,7 +22,7 @@ class PacientesController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Lista todos os pacientes com chave e valor para select')]
-    #[OpenApiResponse( statusCode: '200', description: 'Pacientes encontrados com sucesso', ref: '#/components/schemas/ApiSuccessResponse' )]
+    #[OpenApiResponse( statusCode: '200', description: 'Pacientes encontrados com sucesso', ref: '#/components/schemas/ApiListOfOptionsResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function options(PacientesService $pacientesService)
     {

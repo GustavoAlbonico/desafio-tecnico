@@ -11,6 +11,465 @@
         }
     ],
     "paths": {
+        "\/api\/medicos": {
+            "get": {
+                "operationId": "medicos:index:get",
+                "summary": "Lista todos os m\u00e9dicos cadastrados",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorPage"
+                    },
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorLimit"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sort",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "nome"
+                            ]
+                        }
+                    },
+                    {
+                        "$ref": "#\/x-swagger-bake\/components\/parameters\/paginatorDirection"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "M\u00e9dicos encontrados com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiMedicosListResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "medicos:add:post",
+                "summary": "Cadastra um novo m\u00e9dico",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "crm",
+                                    "especialidade"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#\/components\/schemas\/Medico"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": "M\u00e9dicos criado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiMedicosResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel criar o m\u00e9dico",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dados inv\u00e1lidos",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/medicos\/options": {
+            "get": {
+                "operationId": "medicos:options:get",
+                "summary": "Lista todos os m\u00e9dicos com chave e valor para select",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "M\u00e9dicos encontrados com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiListOfOptionsResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/medicos\/{id}": {
+            "get": {
+                "operationId": "medicos:view:get",
+                "summary": "Busca um m\u00e9dico pelo ID",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "M\u00e9dicos encontrado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "M\u00e9dicos n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "medicos:edit:patch",
+                "summary": "Atualiza um m\u00e9dico existente",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "crm",
+                                    "especialidade"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#\/components\/schemas\/Medico"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "M\u00e9dicos editado com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiMedicosResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel editar o m\u00e9dico",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "M\u00e9dicos n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dados inv\u00e1lidos",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "medicos:delete:delete",
+                "summary": "Remove um m\u00e9dico",
+                "description": "",
+                "tags": [
+                    "Medicos"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "M\u00e9dicos removido com sucesso",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiMedicosResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "N\u00e3o foi poss\u00edvel excluir o m\u00e9dico",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "M\u00e9dicos n\u00e3o encontrado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ocorreu um erro inesperado",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                        }
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "\/api\/pacientes": {
             "get": {
                 "operationId": "pacientes:index:get",
@@ -182,7 +641,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                                            "$ref": "#\/components\/schemas\/ApiListOfOptionsResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -494,6 +953,64 @@
                 },
                 "type": "object"
             },
+            "ApiListOfOptionsResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "id": "descricao"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "ApiMedicoResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "$ref": "#\/components\/schemas\/Medico"
+                            }
+                        }
+                    }
+                ],
+                "description": "Ocorreu um erro inesperado"
+            },
+            "ApiMedicosListResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#\/components\/schemas\/Medico"
+                                }
+                            },
+                            "pagination": {
+                                "$ref": "#\/components\/schemas\/ApiPagination"
+                            }
+                        }
+                    }
+                ]
+            },
             "ApiPacienteResponse": {
                 "allOf": [
                     {
@@ -579,6 +1096,33 @@
                     }
                 },
                 "type": "object"
+            },
+            "Medico": {
+                "properties": {
+                    "id": {
+                        "minLength": 1,
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "nome": {
+                        "minLength": 1,
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "crm": {
+                        "minLength": 1,
+                        "maxLength": 20,
+                        "type": "string"
+                    },
+                    "especialidade": {
+                        "minLength": 1,
+                        "maxLength": 255,
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "description": ""
             },
             "Paciente": {
                 "properties": {

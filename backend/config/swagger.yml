@@ -39,6 +39,18 @@ components:
         message:
           type: string
 
+    ApiListOfOptionsResponse:
+        allOf:
+          - $ref: "#/components/schemas/ApiSuccessResponse"
+          - type: object
+            properties:
+              data:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  "id": "descricao"
+
     ApiPacientesListResponse:
       allOf:
         - $ref: "#/components/schemas/ApiSuccessResponse"
@@ -58,6 +70,31 @@ components:
           properties:
             data:
               $ref: "#/components/schemas/Paciente"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+    ApiMedicosListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Medico"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiMedicoResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Medico"
       description: Ocorreu um erro inesperado
       content:
         application/json:
