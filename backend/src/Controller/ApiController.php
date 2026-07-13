@@ -42,8 +42,6 @@ class ApiController extends AppController
                     'per_page' => $paging['perPage'],
                     'total' => $paging['totalCount'],
                     'total_pages' => $paging['pageCount'],
-                    'first_page' => $paging['start'],
-                    'last_page' => $paging['end'],
                     'has_next_page' => $paging['hasNextPage'],
                     'has_prev_page' => $paging['hasPrevPage']
                 ]
