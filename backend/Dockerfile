@@ -19,5 +19,8 @@ WORKDIR /var/www/html
 COPY . .
 RUN composer install --no-interaction --optimize-autoloader --ignore-platform-reqs
 
+RUN chmod +x entrypoint.sh
+
 EXPOSE 8765
-CMD ["php", "bin/cake.php", "server", "-H", "0.0.0.0", "-p", "8765"]
+
+CMD ["./entrypoint.sh"]
