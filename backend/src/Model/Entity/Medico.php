@@ -34,7 +34,7 @@ class Medico extends Entity
         'especialidade' => true,
         'created' => false,
         'modified' => false,
-        'atendimentos' => true,
+        'atendimentos' => false,
     ];
 
     protected array $_hidden = [

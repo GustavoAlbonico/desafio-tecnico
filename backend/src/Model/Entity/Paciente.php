@@ -38,7 +38,7 @@ class Paciente extends Entity
         'email' => true,
         'created' => false,
         'modified' => false,
-        'atendimentos' => true,
+        'atendimentos' => false,
     ];
 
     protected array $_hidden = [
