@@ -17,7 +17,12 @@ class PacientesController extends ApiController
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(PacientesService $pacientesService)
     {
-        $pacientes = $pacientesService->list();
+        $paginateParams = $this->getPaginateParams();
+
+        $pacientes = $pacientesService
+            ->paginate($paginateParams)
+            ->list();
+
         return $this->ok($pacientes, 'Pacientes encontrados');
     }
 
@@ -95,5 +100,14 @@ class PacientesController extends ApiController
         }
 
         return $this->ok(message: 'Paciente excluído com sucesso!');
+    }
+
+    private function getPaginateParams():array {
+        return [
+            'page' => $this->request->getQuery('page') ?: 1,
+            'sort' => $this->request->getQuery('sort') ?: 'data_atendimento',
+            'direction' => $this->request->getQuery('direction') ?: 'DESC',
+            'limit' => $this->request->getQuery('limit') ?: 20
+        ];
     }
 }

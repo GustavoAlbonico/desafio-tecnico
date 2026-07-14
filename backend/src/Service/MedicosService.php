@@ -13,6 +13,8 @@ use Cake\Http\Exception\NotFoundException;
 
 class MedicosService implements IService {
 
+    private array $paginate;
+
     public function __construct(
         private MedicosRepository $medicosRepository,
         private AtendimentosRepository $atendimentosRepository
@@ -20,7 +22,9 @@ class MedicosService implements IService {
     }
 
     public function list(): PaginatedInterface{
-        return $this->medicosRepository->findAll();
+        return $this->medicosRepository
+            ->paginate($this->paginate)
+            ->findAll();
     }
 
     public function listAsOptions(): array {
@@ -71,5 +75,10 @@ class MedicosService implements IService {
         }
 
         return $this->medicosRepository->delete($medicoEntity);
+    }
+
+    public function paginate(array $paginate):self{
+        $this->paginate = $paginate;
+        return $this;
     }
 }

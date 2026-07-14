@@ -18,7 +18,12 @@ class MedicosController extends ApiController
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(MedicosService $medicosService)
     {
-        $medicos = $medicosService->list();
+        $paginateParams = $this->getPaginateParams();
+
+        $medicos = $medicosService
+            ->paginate($paginateParams)
+            ->list();
+            
         return $this->ok($medicos, 'Médicos encontrados');
     }
 
@@ -96,5 +101,14 @@ class MedicosController extends ApiController
         }
 
         return $this->ok(message: 'Médico excluído com sucesso!');
+    }
+
+    private function getPaginateParams():array {
+        return [
+            'page' => $this->request->getQuery('page') ?: 1,
+            'sort' => $this->request->getQuery('sort') ?: 'data_atendimento',
+            'direction' => $this->request->getQuery('direction') ?: 'DESC',
+            'limit' => $this->request->getQuery('limit') ?: 20
+        ];
     }
 }

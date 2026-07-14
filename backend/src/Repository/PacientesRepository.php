@@ -13,6 +13,7 @@ use Cake\ORM\TableRegistry;
 class PacientesRepository implements IRepository {
 
     private PacientesTable $table;
+    private array $paginate;
 
     public function __construct(private NumericPaginator $paginator)
     {
@@ -21,7 +22,7 @@ class PacientesRepository implements IRepository {
 
     public function findAll(): PaginatedInterface
     {
-        return $this->paginator->paginate($this->table->find());
+        return $this->paginator->paginate($this->table->find(),$this->paginate);
     }
 
     public function findAllAsOptions(): array
@@ -57,4 +58,10 @@ class PacientesRepository implements IRepository {
         
         return $this->table->patchEntity($entity, $data);
     }
+
+    public function paginate(array $paginate):self{
+        $this->paginate = $paginate;
+        return $this;
+    }
+
 }
