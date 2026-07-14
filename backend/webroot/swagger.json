@@ -473,7 +473,9 @@
                         "schema": {
                             "type": "string",
                             "enum": [
-                                "nome"
+                                "nome",
+                                "crm",
+                                "especialidade"
                             ]
                         }
                     },
@@ -947,7 +949,9 @@
                         "schema": {
                             "type": "string",
                             "enum": [
-                                "nome"
+                                "nome",
+                                "cpf",
+                                "data_nascimento"
                             ]
                         }
                     },

@@ -12,7 +12,7 @@ use SwaggerBake\Lib\Attribute\OpenApiResponse;
 class PacientesController extends ApiController
 {
     #[OpenApiOperation(summary: 'Lista todos os pacientes cadastrados')]
-    #[OpenApiPaginator(sortEnum: ['nome'])]
+    #[OpenApiPaginator(sortEnum: ['nome','cpf','data_nascimento'])]
     #[OpenApiResponse( statusCode: '200', description: 'Pacientes encontrados com sucesso', ref: '#/components/schemas/ApiPacientesListResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(PacientesService $pacientesService)

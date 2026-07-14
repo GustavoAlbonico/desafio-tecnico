@@ -13,7 +13,7 @@ class MedicosController extends ApiController
 {
 
     #[OpenApiOperation(summary: 'Lista todos os médicos cadastrados')]
-    #[OpenApiPaginator(sortEnum: ['nome'])]
+    #[OpenApiPaginator(sortEnum: ['nome','crm','especialidade'])]
     #[OpenApiResponse( statusCode: '200', description: 'Médicos encontrados com sucesso', ref: '#/components/schemas/ApiMedicosListResponse' )]
     #[OpenApiResponse( statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function index(MedicosService $medicosService)
@@ -23,7 +23,7 @@ class MedicosController extends ApiController
         $medicos = $medicosService
             ->paginate($paginateParams)
             ->list();
-            
+
         return $this->ok($medicos, 'Médicos encontrados');
     }
 
