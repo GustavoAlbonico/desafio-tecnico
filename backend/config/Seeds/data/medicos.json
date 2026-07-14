@@ -1,0 +1,22 @@
+[
+  { "nome": "Dr. Arnaldo Ribeiro", "crm": "123456-SP", "especialidade": "Cardiologia" },
+  { "nome": "Dra. Beatriz Fontana", "crm": "234567-RJ", "especialidade": "Pediatria" },
+  { "nome": "Dr. Cláudio Mendes", "crm": "345678-MG", "especialidade": "Ortopedia" },
+  { "nome": "Dra. Diana Paschoal", "crm": "456789-PR", "especialidade": "Dermatologia" },
+  { "nome": "Dr. Evandro Rocha", "crm": "567890-RS", "especialidade": "Ginecologia e Obstetrícia" },
+  { "nome": "Dra. Fernanda Albuquerque", "crm": "678901-SC", "especialidade": "Neurologia" },
+  { "nome": "Dr. Guilherme Siqueira", "crm": "789012-BA", "especialidade": "Oftalmologia" },
+  { "nome": "Dra. Helena Viana", "crm": "890123-GO", "especialidade": "Psiquiatria" },
+  { "nome": "Dr. Ícaro Nogueira", "crm": "901234-DF", "especialidade": "Clínica Médica" },
+  { "nome": "Dra. Juliana Fagundes", "crm": "012345-PE", "especialidade": "Endocrinologia" },
+  { "nome": "Dr. Kléber Cavalcanti", "crm": "135791-SP", "especialidade": "Urologia" },
+  { "nome": "Dra. Larissa Montes", "crm": "246802-RJ", "especialidade": "Otorrinolaringologia" },
+  { "nome": "Dr. Murilo Antunes", "crm": "357913-MG", "especialidade": "Gastroenterologia" },
+  { "nome": "Dra. Natália Dorneles", "crm": "468024-PR", "especialidade": "Pneumologia" },
+  { "nome": "Dr. Otávio Linhares", "crm": "579135-RS", "especialidade": "Infectologia" },
+  { "nome": "Dra. Patrícia Sales", "crm": "680246-SC", "especialidade": "Oncologia" },
+  { "nome": "Dr. Ricardo Malta", "crm": "791357-BA", "especialidade": "Anestesiologia" },
+  { "nome": "Dra. Sabrina Cortez", "crm": "902468-CE", "especialidade": "Geriatria" },
+  { "nome": "Dr. Tobias Meireles", "crm": "024680-ES", "especialidade": "Cirurgia Geral" },
+  { "nome": "Dra. Valéria Krause", "crm": "147258-SP", "especialidade": "Nefrologia" }
+]

@@ -1,0 +1,187 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: API de Atendimentos Médicos
+  description: API para gerenciamento de pacientes, médicos e atendimentos
+servers:
+  - url: http://localhost:8765
+paths:
+
+definitions:
+
+components:
+  schemas:
+    PacienteResumo:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+
+    MedicoResumo:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+
+    AtendimentoListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        data_atendimento:
+          type: string
+          format: date
+        valor_consulta:
+          type: string
+        status:
+          type: integer
+        paciente:
+          $ref: "#/components/schemas/PacienteResumo"
+        medico:
+          $ref: "#/components/schemas/MedicoResumo"
+          
+    ApiPagination:
+      type: object
+      properties:
+        current_page: { type: integer, example: 1 }
+        per_page: { type: integer, example: 20 }
+        total: { type: integer, example: 200 }
+        total_pages: { type: integer, example: 10 }
+        has_next_page: { type: boolean, example: true }
+        has_prev_page: { type: boolean, example: false }
+
+    ApiErrorResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        message: { type: string }
+        errors:  { type: array, nullable: true, items : { type: array }, example: null}
+
+    ApiSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+
+    ApiListOfOptionsResponse:
+        allOf:
+          - $ref: "#/components/schemas/ApiSuccessResponse"
+          - type: object
+            properties:
+              data:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  "id": "descricao"
+
+    ApiPacientesListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Paciente"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiPacienteResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Paciente"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+    ApiMedicosListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Medico"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiMedicoResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Medico"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+    ApiAtendimentosListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/AtendimentoListItem"
+            pagination:
+              $ref: "#/components/schemas/ApiPagination"
+
+    ApiAtendimentoResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Atendimento"
+      description: Ocorreu um erro inesperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+x-swagger-bake:
+  components:
+    schemas:
+      Generic-Collection:
+        type: object
+        x-data-element: items
+        properties:
+          pagination:
+            type: object
+            properties:
+              current_page:
+                type: integer
+                example: 1
+              per_page:
+                type: integer
+                example: 5
+              total:
+                type: integer
+                example: 20
+              total_pages:
+                type: integer
+                example: 4
+              has_next_page:
+                type: boolean
+                example: true
+              has_prev_page:
+                type: boolean
+                example: false

@@ -1,0 +1,22 @@
+[
+  { "nome": "Ana Clara da Silva", "cpf": "123.456.789-01", "data_nascimento": "1995-04-12", "telefone": "(48) 99123-4567", "email": "ana.clara@ficticio.com" },
+  { "nome": "Bruno Henrique dos Santos", "cpf": "234.567.890-12", "data_nascimento": "1988-11-23", "telefone": "(11) 98234-5678", "email": "bruno.henrique@ficticio.com" },
+  { "nome": "Carlos Eduardo de Souza", "cpf": "345.678.901-23", "data_nascimento": "1975-07-08", "telefone": "(21) 97345-6789", "email": null },
+  { "nome": "Daniela Medeiros", "cpf": "456.789.012-34", "data_nascimento": "2001-02-28", "telefone": "(31) 99456-7890", "email": "daniela.m@ficticio.com" },
+  { "nome": "Eduardo Costa Lima", "cpf": "567.890.123-45", "data_nascimento": "1990-09-15", "telefone": "(51) 98567-8901", "email": "edu.costa@ficticio.com" },
+  { "nome": "Fernanda Oliveira Rezende", "cpf": "678.901.234-56", "data_nascimento": "1983-05-19", "telefone": "(41) 99678-9012", "email": "fernanda.oliveira@ficticio.com" },
+  { "nome": "Gabriel Almeida Cruz", "cpf": "789.012.345-67", "data_nascimento": "1998-12-05", "telefone": "(61) 99189-0123", "email": null },
+  { "nome": "Helena Rodrigues Machado", "cpf": "890.123.456-78", "data_nascimento": "1967-03-30", "telefone": "(71) 98890-1234", "email": "helena.rodrigues@ficticio.com" },
+  { "nome": "Igor Matheus Rocha", "cpf": "901.234.567-89", "data_nascimento": "1993-08-22", "telefone": "(81) 99901-2345", "email": "igor.matheus@ficticio.com" },
+  { "nome": "Julia Fagundes Dias", "cpf": "012.345.678-90", "data_nascimento": "2004-10-11", "telefone": "(19) 98112-3456", "email": "julia.dias@ficticio.com" },
+  { "nome": "Lucas Gabriel Vieira", "cpf": "135.246.579-11", "data_nascimento": "1982-01-17", "telefone": "(85) 98123-9876", "email": "lucas.g@ficticio.com" },
+  { "nome": "Mariana Ramos Teixeira", "cpf": "246.357.680-22", "data_nascimento": "1996-06-14", "telefone": "(91) 98234-8765", "email": "mari.ramos@ficticio.com" },
+  { "nome": "Nicolas Fontes Melo", "cpf": "357.468.791-33", "data_nascimento": "1979-10-25", "telefone": "(27) 98345-7654", "email": null },
+  { "nome": "Olivia Cristina Nunes", "cpf": "468.579.802-44", "data_nascimento": "1991-03-03", "telefone": "(16) 98456-6543", "email": "olivia.nunes@ficticio.com" },
+  { "nome": "Pedro Augusto Carvalho", "cpf": "579.680.913-55", "data_nascimento": "2000-07-29", "telefone": "(32) 98567-5432", "email": "pedro.carvalho@ficticio.com" },
+  { "nome": "Beatriz Zimmermann", "cpf": "680.791.024-66", "data_nascimento": "1986-11-02", "telefone": "(47) 98678-4321", "email": "bia.z@ficticio.com" },
+  { "nome": "Rafael Barbosa Silva", "cpf": "791.902.135-77", "data_nascimento": "1964-05-13", "telefone": "(62) 98789-3210", "email": "rafael.barbosa@ficticio.com" },
+  { "nome": "Sofia Moreira Paz", "cpf": "902.013.246-88", "data_nascimento": "2002-09-09", "telefone": "(84) 98890-2109", "email": "sofia.paz@ficticio.com" },
+  { "nome": "Thiago Martins Cardoso", "cpf": "013.124.357-99", "data_nascimento": "1994-01-21", "telefone": "(12) 98901-1098", "email": null },
+  { "nome": "Vanessa da Silva Prado", "cpf": "147.258.369-00", "data_nascimento": "1989-08-31", "telefone": "(13) 98012-0987", "email": "vanessa.prado@ficticio.com" }
+]
