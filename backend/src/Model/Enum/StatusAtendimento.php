@@ -7,14 +7,14 @@ use Cake\Database\Type\EnumLabelInterface;
 use Cake\Utility\Inflector;
 
 /**
- * AtendimentoStatus Enum
+ * StatusAtendimento Enum
  */
-enum AtendimentoStatus: int implements EnumLabelInterface
+enum StatusAtendimento: int implements EnumLabelInterface
 {
 
     case Agendado = 1;
-    case Cancelado = 2;
-    case Finalizado = 3;
+    case Concluido = 2;
+    case Cancelado = 3;
     
     /**
      * @return string
