@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\I18n\Date;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -70,18 +71,30 @@ class PacientesTable extends Table
             ->scalar('cpf')
             ->maxLength('cpf', 14, 'O CPF deve ter no máximo 14 caracteres. (com mascara)')
             ->minLength('cpf', 14, 'O CPF deve ter no minimo 14 caracteres. (com mascara)')
+            ->add('cpf', 'formato', [
+                'rule' => ['custom', '/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'],
+                'message' => 'O CPF deve estar no formato 000.000.000-00.'
+            ])
             ->requirePresence('cpf', 'create', 'O CPF é obrigatório.')
             ->notEmptyString('cpf', 'O CPF é obrigatório.')
             ->add('cpf', 'unique', [
                 'rule' => 'validateUnique',
                 'provider' => 'table',
                 'message' => 'CPF já cadastrado.'
+            ])
+            ->add('cpf', 'valido', [
+                'rule' => [$this, 'validarCpf'],
+                'message' => 'CPF inválido.'
             ]);
 
         $validator
             ->date('data_nascimento', message: 'Data de nascimento inválida.')
             ->requirePresence('data_nascimento', 'create', 'A data de nascimento é obrigatória.')
-            ->notEmptyDate('data_nascimento', 'A data de nascimento é obrigatória.');
+            ->notEmptyDate('data_nascimento', 'A data de nascimento é obrigatória.')
+            ->add('data_nascimento', 'dataValida', [
+                'rule' => [$this, 'validarDataNascimento'],
+                'message' => 'A data de nascimento não pode ser uma data futura.'
+            ]);
 
         $validator
             ->scalar('telefone')
@@ -108,5 +121,41 @@ class PacientesTable extends Table
         $rules->add($rules->isUnique(['cpf']), ['errorField' => 'cpf']);
 
         return $rules;
+    }
+
+    public function validarCpf(string $value): bool
+    {
+        $cpf = preg_replace('/[^0-9]/', '', $value);
+
+        if (strlen($cpf) !== 11) {
+            return false;
+        }
+
+        // Rejeita CPFs com todos os dígitos iguais (ex: 111.111.111-11)
+        if (preg_match('/^(\d)\1{10}$/', $cpf)) {
+            return false;
+        }
+
+        for ($t = 9; $t < 11; $t++) {
+            $sum = 0;
+            for ($c = 0; $c < $t; $c++) {
+                $sum += (int) $cpf[$c] * (($t + 1) - $c);
+            }
+            $digit = ((10 * $sum) % 11) % 10;
+
+            if ((int) $cpf[$t] !== $digit) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function validarDataNascimento(string $value): bool
+    {
+        $data = Date::parse($value);
+        $hoje = Date::now();
+
+        return $data->greaterThan($hoje);
     }
 }

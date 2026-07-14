@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Enum\StatusAtendimento;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -78,7 +79,8 @@ class AtendimentosTable extends Table
 
         $validator
             ->integer('status', 'O status deve ser um número inteiro.')
-            ->notEmptyString('status', 'O status é obrigatório.');
+            ->notEmptyString('status', 'O status é obrigatório.')
+            ->enum('status', StatusAtendimento::class, 'Status inválido. Valores aceitos: 1 (Agendado), 2 (Concluido), 3 (Cancelado).');
 
         $validator
             ->integer('paciente_id', 'O paciente informado é inválido.')

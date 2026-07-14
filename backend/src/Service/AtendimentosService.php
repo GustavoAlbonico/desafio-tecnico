@@ -8,6 +8,7 @@ use App\Repository\AtendimentosRepository;
 use App\Service\Interface\IService;
 use Cake\Datasource\Paging\PaginatedInterface;
 use Cake\Http\Exception\NotFoundException;
+use Cake\I18n\Date;
 
 class AtendimentosService implements IService {
 
@@ -31,9 +32,13 @@ class AtendimentosService implements IService {
     public function create(array $data): Atendimento | bool{
         $atendimentoEntity = $this->atendimentosRepository->patchEntity(null,$data);
 
+        $this->validarEntidade($atendimentoEntity);
+
         if($atendimentoEntity->hasErrors()){
             throw new EntityValidationException("Entidade Atendimento está inválida, favor verificar!",$atendimentoEntity->getErrors());
         }
+
+
 
         return $this->atendimentosRepository->create($atendimentoEntity);
     }
@@ -46,6 +51,8 @@ class AtendimentosService implements IService {
         }
 
         $atendimentoEntity = $this->atendimentosRepository->patchEntity($atendimento, $data);
+
+        $this->validarEntidade($atendimentoEntity,isEdit:true);
 
         if($atendimentoEntity->hasErrors()){
             throw new EntityValidationException("Entidade Atendimento está inválida, favor verificar!",$atendimentoEntity->getErrors());
@@ -72,5 +79,22 @@ class AtendimentosService implements IService {
     public function filters(array $filters):self{
         $this->filters = $filters;
         return $this;
+    }
+
+    private function validarEntidade(Atendimento $atendimentoEntity, bool $isEdit = false):void {
+ 
+        /* validando valor da consulta */
+        if((float) $atendimentoEntity->valor_consulta < 0){
+            $atendimentoEntity->setError("valor_consulta",[ "valor" => "Valor precisa ser maior que zero!"]);
+        }
+
+        /* validando data de atendimento */
+        $data = Date::parse($atendimentoEntity->data_atendimento);
+        $hoje = Date::now();
+
+        if ($data->lessThan($hoje) && !$isEdit) { /* apenas se for create vai validar */
+            $atendimentoEntity->setError("data_atendimento",[ "periodo" => "Data Inválida!"]);
+        }
+
     }
 }
