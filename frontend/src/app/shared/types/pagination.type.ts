@@ -1,4 +1,4 @@
-export interface PaginationModel {
+export interface Pagination {
     currentPage: number,
     perPage: number,
     total: number,
@@ -7,7 +7,7 @@ export interface PaginationModel {
     hasPrevPage: boolean,
 }
 
-export interface PaginationApiModel {
+export interface PaginationApi {
     current_page: number,
     per_page: number,
     total: number,
@@ -15,4 +15,3 @@ export interface PaginationApiModel {
     has_next_page: boolean,
     has_prev_page: boolean,
 }
-

@@ -1,6 +1,7 @@
-import { PaginationApiModel, PaginationModel } from "../models/pagination.model";
+import { Pagination, PaginationApi } from "../../../shared/types/pagination.type";
 
-export const mapPagination = (paginationApi: PaginationApiModel): PaginationModel => {
+
+export const mapPagination = (paginationApi: PaginationApi): Pagination => {
   return {
     currentPage: paginationApi.current_page,
     perPage: paginationApi.per_page,
