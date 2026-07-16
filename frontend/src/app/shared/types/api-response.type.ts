@@ -1,10 +1,22 @@
-import { ApiErrors } from "./api-errors.type";
 import { Pagination } from "./pagination.type";
 
-export interface ApiResponse<T> {
-    success:boolean,
-    message:string,
-    data?:T[] | T | null,
-    pagination?: Pagination,
-    errors?: ApiErrors | null
+export interface ApiResponseBase {
+  success: boolean;
+  message: string;
+  errors?: ApiErrors | null;
+}
+
+export interface ApiListResponse<T> extends ApiResponseBase {
+  data?: T[] | null;
+  pagination?: Pagination;
+}
+
+export interface ApiItemResponse<T> extends ApiResponseBase {
+  data?: T | null;
+}
+
+export interface ApiErrors {
+  [campo: string]: {
+    [regra: string]: string;
+  };
 }
