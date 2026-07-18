@@ -1,3 +1,5 @@
+import { RouterOutlet } from '@angular/router';
+import { Sidebar } from '../sidebar/sidebar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
@@ -5,26 +7,25 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { Header } from '../header/header';
 
 @Component({
-  selector: 'app-sidebar',
-  imports: [    
+  selector: 'app-auth-layout',
+  imports: [
+    RouterOutlet,
+    Sidebar,
+    Header,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule
   ],
-  templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss',
+  templateUrl: './auth-layout.html',
+  styleUrl: './auth-layout.scss',
 })
-export class Sidebar {
+export class AuthLayout {
   protected readonly isMobile = signal(false);
-  protected readonly fillerNav = Array.from(
-    { length: 50 },
-    (_, i) => `Nav Item ${i + 1}`
-  );
 
   private readonly _mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;

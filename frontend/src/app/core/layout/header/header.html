@@ -1,1 +1,10 @@
-<p>header works!</p>
+<header>
+  <mat-toolbar>
+    @if(isMobile()){
+      <button mat-icon-button (click)="onMenuClick($event)">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+    <span>AMU</span>
+  </mat-toolbar>
+</header>

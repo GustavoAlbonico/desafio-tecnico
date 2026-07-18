@@ -1,0 +1,15 @@
+header {
+  position: relative;
+  z-index: 5;
+  box-shadow: 0px 1px 7px #0000003b;
+  
+  mat-toolbar {
+    background-color: var(--app-main-color);
+    color: var(--app-white-text);
+
+    button {
+      color: var(--app-white-text);
+      margin-right: 6px;
+    }
+  }
+}

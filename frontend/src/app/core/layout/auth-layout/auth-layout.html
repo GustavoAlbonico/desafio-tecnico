@@ -1,0 +1,20 @@
+
+<app-header (menuClick)="snav.toggle()" [isMobile]="isMobile()"></app-header>
+
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav 
+    #snav 
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile()"
+    [fixedInViewport]="isMobile()" 
+    fixedTopGap="64"
+  >
+    <app-sidebar/>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main>
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

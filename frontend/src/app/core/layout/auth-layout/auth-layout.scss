@@ -1,0 +1,12 @@
+.layout-container {
+  height: calc(100vh - 64px);
+  background-color: var(--app-side-color);
+}
+
+mat-sidenav {
+  width: 250px;
+  border-radius: 0;
+  box-shadow: 4px 0px 6px #0000001f;
+  background-color: var(--app-main-color);
+  color: var(--app-white-text);
+}
