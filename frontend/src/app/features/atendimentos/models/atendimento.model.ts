@@ -1,4 +1,3 @@
-import { EntitySummary } from "../../../shared/types/entity-summary.type";
 import { StatusAtendimento } from "../enums/status-atendimento.enum";
 
 export interface AtendimentoModel {
@@ -15,8 +14,8 @@ export interface AtendimentoListModel {
   dataAtendimento: string,
   valorConsulta: string,
   status:StatusAtendimento,
-  paciente: EntitySummary,
-  medico: EntitySummary,
+  pacienteNome: string,
+  medicoNome: string,
 }
 
 
@@ -34,7 +33,7 @@ export interface AtendimentoApiListModel {
   data_atendimento: string,
   valor_consulta: string,
   status:StatusAtendimento,
-  paciente: EntitySummary,
-  medico: EntitySummary,
+  paciente_nome: string,
+  medico_nome: string,
 }
 
