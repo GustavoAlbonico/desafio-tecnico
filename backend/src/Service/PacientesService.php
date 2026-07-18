@@ -8,6 +8,7 @@ use App\Repository\AtendimentosRepository;
 use App\Repository\PacientesRepository;
 use App\Service\Interface\IService;
 use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\Datasource\ResultSetInterface;
 use Cake\Http\Exception\ConflictException;
 use Cake\Http\Exception\NotFoundException;
 
@@ -27,7 +28,7 @@ class PacientesService implements IService {
             ->findAll();
     }
 
-    public function listAsOptions(): array {
+    public function listAsOptions(): ResultSetInterface {
         return $this->pacientesRepository->findAllAsOptions();
     }
 
