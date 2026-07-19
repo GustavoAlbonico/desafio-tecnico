@@ -1,1 +1,8 @@
-<p>confirm-dialog works!</p>
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  {{ data.description }}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton [mat-dialog-close]="false">{{ data.leftButtonLabel }}</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial>{{ data.rightButtonLabel }}</button>
+</mat-dialog-actions>
