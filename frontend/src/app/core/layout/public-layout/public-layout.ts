@@ -10,7 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Header } from '../header/header';
 
 @Component({
-  selector: 'app-auth-layout',
+  selector: 'app-public-layout',
   imports: [
     RouterOutlet,
     Sidebar,
@@ -21,10 +21,10 @@ import { Header } from '../header/header';
     MatSidenavModule,
     MatListModule
   ],
-  templateUrl: './auth-layout.html',
-  styleUrl: './auth-layout.scss',
+  templateUrl: './public-layout.html',
+  styleUrl: './public-layout.scss',
 })
-export class AuthLayout {
+export class PublicLayout {
   protected readonly isMobile = signal(false);
 
   private readonly _mobileQuery: MediaQueryList;
@@ -33,7 +33,7 @@ export class AuthLayout {
   constructor() {
     const media = inject(MediaMatcher);
 
-    this._mobileQuery = media.matchMedia('(max-width: 720px)'); //define um tamanho mobile padrão
+    this._mobileQuery = media.matchMedia('(max-width: 1024px)'); //define um tamanho mobile padrão
     this.isMobile.set(this._mobileQuery.matches);
     this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches); //verifica se está no tamanho mobile
     this._mobileQuery.addEventListener('change', this._mobileQueryListener); //evento ao trocar de tamanho de tela
