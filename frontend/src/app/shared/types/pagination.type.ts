@@ -7,6 +7,11 @@ export interface Pagination {
     hasPrevPage: boolean,
 }
 
+export interface PaginatedModel<T> {
+  items:T[]
+  pagination:Pagination
+}
+
 export interface PaginationApi {
     current_page: number,
     per_page: number,
@@ -15,3 +20,11 @@ export interface PaginationApi {
     has_next_page: boolean,
     has_prev_page: boolean,
 }
+
+export interface PaginationParams {
+    page?:number, 
+    limit?:number, 
+    direction?:string,
+    sort?:string
+}
+
