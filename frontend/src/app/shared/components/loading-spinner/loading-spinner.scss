@@ -1,0 +1,15 @@
+.loading-spinner-container {
+  position: absolute;
+  inset: 0;
+
+  background-color: rgba(0, 0, 0, 0.075);
+  backdrop-filter: blur(2px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: auto;
+  z-index: 10;
+
+}
