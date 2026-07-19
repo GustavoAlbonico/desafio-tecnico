@@ -1,0 +1,23 @@
+.page-header-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 2rem;
+
+  .page-header-title {
+    display: inline;
+    font-family: var(--mat-sys-label-large-font);
+    color: var(--amu-black-text);
+    margin-right: 5px;
+  }
+
+  .page-header-subtitle {
+    font-family: var(--mat-sys-label-large-font);
+    font-size: 0.75rem;
+    font-style:italic;
+  }
+  
+}
