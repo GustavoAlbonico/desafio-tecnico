@@ -36,10 +36,13 @@ class AtendimentosRepository implements IRepository {
         ->where($this->filters)
         ->contain([
             'Medicos',
-            'Pacientes'
+            'Pacientes',
         ]);
 
-        return $this->paginator->paginate($query,$this->paginate);
+        return $this->paginator->paginate(
+            $query,$this->paginate,
+            ['sortableFields' => ['data_atendimento', 'status' ,'valor_consulta', 'medico_nome', 'paciente_nome']]
+        );
     }
 
     public function findById(int $id): ?Atendimento
