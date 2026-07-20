@@ -1,1 +1,96 @@
-<p>atendimento-list.page works!</p>
+
+<app-page-header 
+  actionLabel="Novo"
+  title="Atendimentos"
+  subtitle="Listagem"
+  (actionEvent)="onCreate()"
+/>
+
+@if(!this.isFirstLoading()){
+
+  <form [formGroup]="filterForm">
+    <div class="filter-container">
+
+        <mat-form-field appearance="outline" class="compact-fields">
+          <mat-label>Data Incial</mat-label>
+          <input matInput [matDatepicker]="dataInicial" formControlName="dataInicial">
+          <mat-datepicker-toggle matIconSuffix [for]="dataInicial"></mat-datepicker-toggle>
+          <mat-datepicker #dataInicial ></mat-datepicker>
+          @if (filterForm.get('dataInicial')?.hasError('dateRangeInvalid')) {
+            <mat-error title="Data Inicial precisa ser menor que a final">
+              Data Inicial precisa ser menor que a final
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="compact-fields">
+          <mat-label>Data Final</mat-label>
+          <input matInput [matDatepicker]="dataFinal" formControlName="dataFinal">
+          <mat-datepicker-toggle matIconSuffix [for]="dataFinal"></mat-datepicker-toggle>
+          <mat-datepicker #dataFinal></mat-datepicker>
+        </mat-form-field>
+
+         <mat-form-field appearance="outline" class="compact-fields">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            @for (status of statusOptions(); track status) {
+              <mat-option [value]="status">  {{ STATUS_ATENDIMENTO_LABELS[status] }} </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <app-entity-select
+          label="Médico"
+          [options]="medicoOptions()"
+          formControlName="medicoId"
+        />
+
+        <app-entity-select
+          label="Paciente"
+          [options]="pacienteOptions()"
+          formControlName="pacienteId"
+        />
+
+        @if(this.hasActiveFilters()){
+          <button 
+            matButton="outlined" 
+            (click)="onClearFilters()" 
+            [disabled]="loading()" 
+            class="filter-button"
+          >
+            Limpar
+          </button>
+        }
+
+        <button 
+          matButton="filled"  
+          (click)="onApplyFilters()" 
+          [disabled]="loading() || filterForm.invalid"  
+          class="filter-button"
+        >
+          Filtrar
+        </button>
+
+    </div>
+  </form>
+
+  <app-table-list
+    [loading]="loading()"
+    [items]="atendimentos()"
+    [listSettings]="tableListSettings"
+    [actions]="tableActions"
+    [sortSettings]="tableSortSettings"
+    (actionClick)="onTableAction($event)"
+    (sortChange)="onTableSortChange($event)"
+    matSortActive="dataAtendimento" 
+    matSortDirection="desc"
+  />
+
+  <app-paginator 
+    [pagination]="pagination()"
+    [paginationPageOptions]="paginationPageOptions"
+    (pageEvent)="onPageEvent($event)"
+  />
+} @else {
+  <app-empty-page/>
+}
