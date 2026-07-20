@@ -1,39 +1,109 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+
+:root {
+  --amu-main-color: #00995c;
+  --amu-side-color: #EAF6F2;
+  --amu-sub-side-color: #d1f7ea;
+  --amu-white-text: #eeeeee;
+  --amu-black-text: #333;
+
+  --mat-sys-primary: var(--amu-main-color);
+  --mat-sys-secondary-container: var(--amu-side-color);
+
+  @include mat.progress-spinner-overrides((active-indicator-color: #00995ca1,
+    ));
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
 
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+  @include mat.theme((color: (primary: mat.$spring-green-palette,
+        tertiary: mat.$green-palette,
       ),
       typography: Roboto,
-      density: 0,
-    )
-  );
+      density: -1,
+    ));
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
+.compact-fields {
+  @include mat.theme((density: -5,
+    ));
 }
-/* You can add global styles to this file, and also import other style files */
+
+/* coloca ... */
+mat-error {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Cole isto no seu styles.scss GLOBAL --- */
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: #198754 !important;
+    /* Força a cor de fundo verde */
+    border-radius: 8px !important;
+  }
+
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    /* Força o texto branco */
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: #dc3545 !important;
+    /* Força a cor de fundo vermelha */
+    border-radius: 8px !important;
+  }
+
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    /* Força o texto branco */
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.filter-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  background-color: #f9faf4;
+  padding: 0px 1rem;
+  padding-top: 20px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.027);
+  border-bottom: 1px solid #3333339a;
+
+  .filter-button {
+    display: inline;
+    margin-bottom: 20px;
+    margin-left: auto;
+
+    &:has(+button) {
+      margin-left: auto;
+
+      ~button {
+        margin-left: 0px;
+      }
+    }
+  }
+}
