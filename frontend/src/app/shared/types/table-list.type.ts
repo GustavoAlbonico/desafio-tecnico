@@ -5,6 +5,7 @@ export interface TableListSettings<T> {
   columnName: string,
   value: (item: T) => string | number,
   align?: 'left' | 'center' | 'right',
+  class?: (item: T) => string,
   pipe?: TableColumnPipe
 }
 
