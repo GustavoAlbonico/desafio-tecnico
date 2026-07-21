@@ -2,7 +2,7 @@ import { StatusAtendimento } from "../enums/status-atendimento.enum";
 
 export const STATUS_ATENDIMENTO_LABELS: Record<StatusAtendimento, string> = {
   [StatusAtendimento.Agendado]: 'Agendado',
-  [StatusAtendimento.Confirmado]: 'Confirmado',
+  [StatusAtendimento.Concluido]: 'Concluído',
   [StatusAtendimento.Cancelado]: 'Cancelado',
 };
 
