@@ -7,4 +7,16 @@ export const ATENDIMENTOS_ROUTES: Routes = [
       import('./pages/atendimento-list.page/atendimento-list.page')
         .then(atendimentos => atendimentos.AtendimentoListPage)
   },
+  {
+    path: 'novo',
+    loadComponent: () =>
+      import('./pages/atendimento-form.page/atendimento-form.page')
+        .then(atendimentos => atendimentos.AtendimentoFormPage)
+  },
+  {
+    path: 'editar/:id',
+    loadComponent: () =>
+      import('./pages/atendimento-form.page/atendimento-form.page')
+        .then(atendimentos => atendimentos.AtendimentoFormPage)
+  }
 ];
