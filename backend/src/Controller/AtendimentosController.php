@@ -112,10 +112,16 @@ class AtendimentosController extends ApiController
 
         $medicoId = $this->request->getQuery('medico_id') ?: null;
         $pacienteId = $this->request->getQuery('paciente_id') ?: null;
+        $status = $this->request->getQuery('status') ?: null;
+        $dataInicial = $this->request->getQuery('data_inicial') ?: null;
+        $dataFinal = $this->request->getQuery('data_final') ?: null;
 
         return  array_filter([
             'Atendimentos.medico_id' => $medicoId,
             'Atendimentos.paciente_id' => $pacienteId,
+            'Atendimentos.status' => $status,
+            'Atendimentos.data_atendimento >=' => $dataInicial,
+            'Atendimentos.data_atendimento <=' => $dataFinal,
         ]);
     }
 }
