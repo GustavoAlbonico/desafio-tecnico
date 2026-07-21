@@ -70,8 +70,19 @@ export class AtendimentoListPage {
       reference: 'dataAtendimento', columnName: 'Data',
       value: (item) => formatStringDate(item.dataAtendimento,'YMD','DMY','-','/'), align: 'center'
     },
-    { reference: 'valorConsulta', columnName: 'Valor', value: (item) => item.valorConsulta, align: 'right', pipe: {type:'currency'} as TableColumnPipe },
-    { reference: 'status', columnName: 'Status', value: (item) => STATUS_ATENDIMENTO_LABELS[item.status], },
+    { reference: 'valorConsulta', columnName: 'Valor', value: (item) => item.valorConsulta, align: 'center', pipe: {type:'currency'} as TableColumnPipe },
+    { 
+      reference: 'status', columnName: 'Status', align: 'center',
+      value: (item) => STATUS_ATENDIMENTO_LABELS[item.status], 
+      class: (item) => {
+        switch (item.status) {
+          case StatusAtendimento.Cancelado: return 'cancelado';
+          case StatusAtendimento.Concluido: return 'concluido';
+          case StatusAtendimento.Agendado: return 'agendado';
+          default: return '';
+        }
+      }
+    },
     { reference: 'paciente', columnName: 'Paciente', value: (item) => item.pacienteNome, },
     { reference: 'medico', columnName: 'Médico', value: (item) => item.medicoNome, },
   ];
