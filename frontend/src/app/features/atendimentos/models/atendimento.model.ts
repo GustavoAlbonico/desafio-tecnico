@@ -1,7 +1,6 @@
 import { StatusAtendimento } from "../enums/status-atendimento.enum";
 
 export interface AtendimentoModel {
-  id: number,
   dataAtendimento: string,
   valorConsulta: string,
   status:StatusAtendimento,
@@ -18,9 +17,7 @@ export interface AtendimentoListModel {
   medicoNome: string,
 }
 
-
 export interface AtendimentoApiModel {
-  id: number,
   data_atendimento: string,
   valor_consulta: string,
   status:StatusAtendimento,

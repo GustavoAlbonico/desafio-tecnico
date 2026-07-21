@@ -2,7 +2,6 @@ import { AtendimentoApiListModel, AtendimentoApiModel, AtendimentoListModel, Ate
 
 export const mapAtendimento = (atendimentoApi: AtendimentoApiModel): AtendimentoModel => {
   return {
-    id: atendimentoApi.id,
     dataAtendimento: atendimentoApi.data_atendimento,
     valorConsulta: atendimentoApi.valor_consulta,
     status: atendimentoApi.status,
