@@ -1,0 +1,24 @@
+<mat-form-field appearance="outline" class="compact-fields">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="myControl"
+    [matAutocomplete]="auto"
+    []
+    required="{{ required() ? 'true' : 'false' }}"
+    (blur)="onBlur()" 
+  >
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    (optionSelected)="onOptionSelected($event)"
+  >
+    @for (option of filteredOptions | async; track option.id) {
+      <mat-option [value]="option">{{ option.nome }}</mat-option>
+    }
+  </mat-autocomplete>
+  @if (getError(); as mensagem) {
+    <mat-error>{{ mensagem }}</mat-error>
+  }
+</mat-form-field>

@@ -1,0 +1,99 @@
+<app-page-header 
+  actionLabel="Voltar"
+  title="Atendimentos"
+  subtitle="{{ isEdit() ? 'Editar' : 'Novo' }}"
+  (actionEvent)="onReturnPage()"
+/>
+
+  <form [formGroup]="atendimentoForm" (submit)="onSaveEntity()">
+    <div class="form-container">
+
+      <h3 class="form-title">
+        Formulário
+      </h3>
+
+      <div class="form-fields">
+        
+        <div class="form-fields-group">
+
+          <mat-form-field appearance="outline" class="compact-fields">
+            <mat-label>Data Atendimento</mat-label>
+            <input matInput [matDatepicker]="data_atendimento" formControlName="data_atendimento">
+            <mat-datepicker-toggle matIconSuffix [for]="data_atendimento"></mat-datepicker-toggle>
+            <mat-datepicker #data_atendimento ></mat-datepicker>
+            @if (atendimentoForm.get('data_atendimento')?.invalid) {
+              <mat-error>
+                {{ getControlError(atendimentoForm,'data_atendimento') }}
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="compact-fields">
+            <mat-label>Valor da Consulta </mat-label>
+            <input matInput type="number" placeholder="0" formControlName="valor_consulta"/>
+            <span matTextPrefix>R$&nbsp;</span>
+            @if (atendimentoForm.get('valor_consulta')?.invalid) {
+              <mat-error>
+                {{ getControlError(atendimentoForm,'valor_consulta') }}
+              </mat-error>
+            }
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-fields-group">
+
+          <app-entity-select
+            label="Médico"
+            [options]="medicoOptions()"
+            formControlName="medico_id"
+            [required]="true"
+          />
+        
+          <app-entity-select
+            label="Paciente"
+            [options]="pacienteOptions()"
+            formControlName="paciente_id"
+            [required]="true"
+          />
+
+        </div>
+        
+        @if(isEdit()){
+          <mat-form-field appearance="outline" class="compact-fields">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              @for (status of statusOptions(); track status) {
+                <mat-option [value]="status">  {{ STATUS_ATENDIMENTO_LABELS[status] }} </mat-option>
+              }
+            </mat-select>
+            @if (atendimentoForm.get('status')?.invalid) {
+              <mat-error>
+                {{ getControlError(atendimentoForm,'status') }}
+              </mat-error>
+            }
+          </mat-form-field>
+        }
+
+
+      </div>
+
+      <div class="form-actions">
+        @if(loading()){
+          <mat-progress-bar class="form-loading" mode="query"></mat-progress-bar>
+        }
+
+
+        <button 
+          matButton="filled"  
+          class="filter-button"
+          type="submit"
+          [disabled]="loading()"
+        >
+          Salvar
+        </button>
+
+      </div>
+
+    </div>
+  </form>

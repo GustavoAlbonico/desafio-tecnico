@@ -1,0 +1,175 @@
+@use '@angular/material' as mat;
+
+:root {
+  --amu-main-color: #00995c;
+  --amu-side-color: #EAF6F2;
+  --amu-sub-side-color: #d1f7ea;
+  --amu-white-text: #eeeeee;
+  --amu-black-text: #333;
+
+  --mat-sys-primary: var(--amu-main-color);
+  --mat-sys-secondary-container: var(--amu-side-color);
+
+  @include mat.progress-spinner-overrides((active-indicator-color: #00995ca1,
+    ));
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+html {
+  height: 100%;
+  @include mat.theme((color: (primary: mat.$spring-green-palette,
+        tertiary: mat.$green-palette,
+      ),
+      typography: Roboto,
+      density: -1,
+    ));
+}
+
+.compact-fields {
+  @include mat.theme((density: -5,
+    ));
+}
+
+/* coloca ... */
+mat-error {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Cole isto no seu styles.scss GLOBAL --- */
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: #198754 !important;
+    /* Força a cor de fundo verde */
+    border-radius: 8px !important;
+  }
+
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    /* Força o texto branco */
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: #dc3545 !important;
+    /* Força a cor de fundo vermelha */
+    border-radius: 8px !important;
+  }
+
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    /* Força o texto branco */
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.filter-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  background-color: #f9faf4;
+  padding: 0px 1rem;
+  padding-top: 20px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.027);
+  border-bottom: 1px solid #3333339a;
+
+  .filter-button {
+    display: inline;
+    margin-bottom: 20px;
+    margin-left: auto;
+
+    &:has(+button) {
+      margin-left: auto;
+
+      ~button {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+
+.form-container {
+  width: fit-content;
+  background-color: #f9faf4;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.342);
+  border-radius: 8px;
+
+  .mat-mdc-form-field {
+    min-width: 240px;
+  }
+
+  .form-title {
+    margin: 0;
+    font-size:1.75rem;
+
+    text-align: center;
+    font-family: var(--mat-sys-label-large-font);
+    color: var(--amu-black-text);
+
+    margin-bottom: 10px;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.137);
+    padding: 1rem;
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    padding: 1rem 1rem 0px 1rem;
+
+      .form-fields-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+  }
+
+  .form-actions {
+    position: relative;
+    margin-top: 10px;
+    padding: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border-top: 1.5px solid rgba(0, 0, 0, 0.137);
+
+    .form-loading{
+      position: absolute;
+      top: -1.5px;
+      margin: 0 auto;
+
+      @include mat.progress-bar-overrides((
+        active-indicator-height: 1.5px,
+        track-height: 1.5px,
+        track-color:rgba(0, 0, 0, 0.137),
+      ));
+    }
+  }
+}

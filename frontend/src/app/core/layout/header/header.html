@@ -1,0 +1,10 @@
+<header>
+  <mat-toolbar>
+    @if(isMobile()){
+      <button mat-icon-button (click)="onMenuClick($event)">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+    <h1>AMU Atendimentos</h1>
+  </mat-toolbar>
+</header>

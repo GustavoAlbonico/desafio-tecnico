@@ -1,0 +1,39 @@
+.table-container {
+  position: relative;
+  max-width: 100vw;
+  overflow-x: auto;
+
+  &:has(app-loading-spinner) {
+    overflow-x:hidden;
+  }
+
+  &:not(:has(td)){
+    min-height: 70vh;
+  }
+
+  table {
+    width: 100%;
+
+    .align-left { text-align: left; place-items: start;}
+    .align-center { text-align: center; place-items: center; }
+    .align-right { text-align: right; place-items: end;}
+
+
+    td {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .table-actions button {
+      background-color: var(--amu-sub-side-color);
+
+      &:has(+button) {
+        margin-right: 5px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+}
+

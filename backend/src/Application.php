@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Error\ApiExceptionRenderer;
+use App\Middleware\CorsMiddleware;
 use App\Repository\AtendimentosRepository;
 use App\Repository\MedicosRepository;
 use App\Repository\PacientesRepository;
@@ -85,6 +86,7 @@ class Application extends BaseApplication
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
         $middlewareQueue
+          ->add(new CorsMiddleware())
           ->add(
                 new ErrorHandlerMiddleware(
                     ['exceptionRenderer' => ApiExceptionRenderer::class] + Configure::read('Error'),

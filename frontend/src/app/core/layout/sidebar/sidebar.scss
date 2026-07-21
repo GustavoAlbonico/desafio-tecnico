@@ -1,0 +1,9 @@
+aside {
+  --mat-sys-on-surface: var(--amu-white-text);
+  --mat-sys-on-surface-variant: var(--amu-white-text);
+}
+
+.active-menu::before{
+  background-color: #eeee;
+  opacity: 0.08;
+}

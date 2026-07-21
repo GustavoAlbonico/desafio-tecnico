@@ -8,6 +8,7 @@ use App\Repository\Interface\IRepository;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Paging\NumericPaginator;
 use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\TableRegistry;
 
 class MedicosRepository implements IRepository {
@@ -25,9 +26,9 @@ class MedicosRepository implements IRepository {
        return $this->paginator->paginate($this->table->find(),$this->paginate);
     }
 
-    public function findAllAsOptions(): array
+    public function findAllAsOptions(): ResultSetInterface
     {
-       return $this->table->find('list')->toArray();
+       return $this->table->find()->select(['id','nome'])->all();
     }
 
     public function findById(int $id): ?Medico

@@ -1,0 +1,17 @@
+.layout-container {
+  height: calc(100vh - 64px);
+  background-color: var(--amu-side-color);
+}
+
+mat-sidenav {
+  width: 200px;
+  border-radius: 0;
+  box-shadow: 4px 0px 6px #0000001f;
+  background-color: var(--amu-main-color);
+  color: var(--amu-white-text);
+}
+
+main {
+  min-height: 100%;
+  padding: 1.5rem 2rem;
+}
