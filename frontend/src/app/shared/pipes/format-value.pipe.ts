@@ -6,15 +6,13 @@ import {
 } from '@angular/common';
 import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { TableColumnPipe } from '../types/table-list.type';
-import { DateStringFormat } from '../types/date-string.type';
-import { formatStringDateToDate } from '../constants/format-date.contant';
 
 @Pipe({
   name: 'formatValue',
   standalone: true
 })
 export class FormatValuePipe implements PipeTransform {
-  /* 1. Injeta o ID de localização da aplicação (ex: pt-BR)  */
+  /* Injeta o ID de localização da aplicação (ex: pt-BR)  */
   private readonly locale = inject(LOCALE_ID);
 
   /* Instancia os pipes manualmente passando o locale */
