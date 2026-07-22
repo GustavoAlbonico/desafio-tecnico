@@ -140,7 +140,9 @@ class Application extends BaseApplication
             ->addArgument(NumericPaginator::class);
 
         $container->add(AtendimentosService::class)
-            ->addArgument(AtendimentosRepository::class);
+            ->addArgument(AtendimentosRepository::class)
+            ->addArgument(MedicosRepository::class)
+            ->addArgument(PacientesRepository::class);
 
         /*--- Swagger ---*/
 

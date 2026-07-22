@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Repository;
 
@@ -8,9 +8,11 @@ use App\Repository\Interface\IRepository;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Paging\NumericPaginator;
 use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 
-class AtendimentosRepository implements IRepository {
+class AtendimentosRepository implements IRepository
+{
 
     private AtendimentosTable $table;
     private array $paginate;
@@ -25,23 +27,24 @@ class AtendimentosRepository implements IRepository {
     {
 
         $query = $this->table->find()
-        ->select([
-            'Atendimentos.id',
-            'Atendimentos.data_atendimento',
-            'Atendimentos.valor_consulta',
-            'Atendimentos.status',
-            'medico_nome' => 'Medicos.nome',
-            'paciente_nome' => 'Pacientes.nome'
-        ])
-        ->where($this->filters)
-        ->contain([
-            'Medicos',
-            'Pacientes',
-        ]);
+            ->select([
+                'Atendimentos.id',
+                'Atendimentos.data_atendimento',
+                'Atendimentos.valor_consulta',
+                'Atendimentos.status',
+                'medico_nome' => 'Medicos.nome',
+                'paciente_nome' => 'Pacientes.nome'
+            ])
+            ->where($this->filters)
+            ->contain([
+                'Medicos',
+                'Pacientes',
+            ]);
 
         return $this->paginator->paginate(
-            $query,$this->paginate,
-            ['sortableFields' => ['data_atendimento', 'status' ,'valor_consulta', 'medico_nome', 'paciente_nome']]
+            $query,
+            $this->paginate,
+            ['sortableFields' => ['data_atendimento', 'status', 'valor_consulta', 'medico_nome', 'paciente_nome']]
         );
     }
 
@@ -56,7 +59,7 @@ class AtendimentosRepository implements IRepository {
     }
 
     public function update(EntityInterface $entity): Atendimento | bool
-    {   
+    {
         return $this->table->save($entity);
     }
 
@@ -65,29 +68,46 @@ class AtendimentosRepository implements IRepository {
         return $this->table->delete($entity);
     }
 
-    public function patchEntity(?EntityInterface $entity,array $data): Atendimento{
+    public function patchEntity(?EntityInterface $entity, array $data): Atendimento
+    {
 
-        if(!$entity){
+        if (!$entity) {
             $entity = $this->table->newEmptyEntity();
         }
-        
+
         return $this->table->patchEntity($entity, $data);
     }
 
-    public function existsByPacienteId(int $id) : bool {
+    public function existsByPacienteId(int $id): bool
+    {
         return $this->table->exists(['paciente_id' => $id]);
     }
 
-    public function existsByMedicoId(int $id) : bool {
+    public function existsByMedicoId(int $id): bool
+    {
         return $this->table->exists(['medico_id' => $id]);
     }
 
-    public function paginate(array $paginate):self{
+    public function countByMedicoIdAndDataAtendimento(int $id, Date $dataAtendimento): int
+    {
+
+        return $this->table
+            ->find()
+            ->where([
+                'medico_id' => $id,
+                'data_atendimento' =>  $dataAtendimento
+            ])
+            ->count();
+    }
+
+    public function paginate(array $paginate): self
+    {
         $this->paginate = $paginate;
         return $this;
     }
 
-    public function filters(array $filters):self{
+    public function filters(array $filters): self
+    {
         $this->filters = $filters;
         return $this;
     }
