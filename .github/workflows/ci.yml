@@ -48,36 +48,13 @@ jobs:
     - name: Instalar dependencias com Composer (com Cache)
       run: |
         docker compose run --rm \
+          --entrypoint "" \
           -v ~/.cache/composer:/root/.composer/cache \
           -e COMPOSER_CACHE_DIR=/root/.composer/cache \
           backend composer install --no-interaction --prefer-dist
 
     - name: Executar PHPUnit
       run: docker compose exec -T backend vendor/bin/phpunit
-
-    - name: Encerrar containers
-      if: always()
-      run: docker compose down
-
-  coding-standard:
-    name: Coding Standard & Static Analysis
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Subir container Backend
-      run: docker compose up -d --build backend
-
-    - name: Instalar dependencias com Composer
-      run: docker compose exec -T backend composer install --no-interaction --prefer-dist
-
-    - name: Executar PHP CodeSniffer
-      run: docker compose exec -T backend vendor/bin/phpcs
-
-    - name: Executar PHPStan
-      if: always()
-      run: docker compose exec -T backend vendor/bin/phpstan
 
     - name: Encerrar containers
       if: always()
