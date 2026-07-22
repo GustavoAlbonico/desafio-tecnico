@@ -8,7 +8,7 @@ echo "=== [2/5] Rodando as Migrations ==="
 php bin/cake.php migrations migrate
 
 echo "=== [3/5] Rodando os Seeds ==="
-php bin/cake.php migrations seed
+php bin/cake.php seeds run
 
 echo "=== [4/5] Rodando os Migrations no banco de TESTE ==="
 php bin/cake.php migrations migrate --connection=test
