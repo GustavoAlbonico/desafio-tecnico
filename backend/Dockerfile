@@ -17,7 +17,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 COPY . .
-RUN composer install --no-interaction --optimize-autoloader --ignore-platform-reqs
+RUN composer install --no-interaction --optimize-autoloader --ignore-platform-reqs --no-scripts
 
 RUN chmod +x entrypoint.sh
 

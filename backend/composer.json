@@ -50,6 +50,9 @@
     },
     "prefer-stable": true,
     "config": {
+        "platform": {
+            "php": "8.3.0"
+        },
         "platform-check": true,
         "sort-packages": true,
         "allow-plugins": {

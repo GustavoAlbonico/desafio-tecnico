@@ -32,7 +32,7 @@ return [
     ],
 
     'Security' => [
-        'salt' => env('SECURITY_SALT'),
+        'salt' => env('SECURITY_SALT', '3911f97c4193da4c264c7608b8b0e74e4a7d6e5a4f3b2c1a'),
     ],
 
     'Asset' => [
@@ -109,14 +109,13 @@ return [
         ],
 
         'test' => [
-            'className' => Connection::class,
-            'driver' => Mysql::class,
-            'persistent' => false,
-            'timezone' => 'UTC',
-            'flags' => [],
-            'cacheMetadata' => true,
-            'quoteIdentifiers' => false,
-            'log' => false,
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'host' => 'mysql',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'db_atendimentos_test',
+            'port' => '3306',
         ],
     ],
 
