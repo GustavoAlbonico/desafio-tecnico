@@ -3,9 +3,9 @@ name: CI
 on:
   push:
     branches:
-      - '4.x'
-      - '4.next'
-      - '5.x'
+      - 'main'
+      - 'develop'
+      
   pull_request:
     branches:
       - '*'
@@ -14,20 +14,25 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   testsuite:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./backend
+
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.1', '8.2']
+        php-version: ['8.1', '8.2', '8.3']
         dependencies: ['highest']
-        include:
-          - php-version: '8.1'
-            dependencies: 'lowest'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -41,7 +46,7 @@ jobs:
       uses: ramsey/composer-install@v2
       with:
         dependency-versions: ${{ matrix.dependencies }}
-        composer-options: ${{ matrix.composer-options }}
+        working-directory: ./backend
 
     - name: Composer post install
       run: composer run-script post-install-cmd --no-interaction
@@ -54,24 +59,29 @@ jobs:
   coding-standard:
     name: Coding Standard & Static Analysis
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./backend
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: '8.3'
         extensions: mbstring, intl
         coverage: none
         tools: cs2pr, phpstan:1.10
 
     - name: Composer install
       uses: ramsey/composer-install@v2
+      with:
+        working-directory: ./backend
 
     - name: Run PHP CodeSniffer
       run: vendor/bin/phpcs --report=checkstyle | cs2pr
 
     - name: Run phpstan
       if: always()
-      run: phpstan
+      run: vendor/bin/phpstan
