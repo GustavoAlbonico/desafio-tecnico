@@ -20,68 +20,65 @@ concurrency:
 
 jobs:
   testsuite:
+    name: Run Test Suite
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: ./backend
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: ['8.1', '8.2', '8.3']
-        dependencies: ['highest']
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Baixar codigo do repositorio
+      uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+    - name: Cache de pacotes do Composer
+      uses: actions/cache@v4
       with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl, pdo_sqlite
-        ini-values: zend.assertions=1
-        coverage: none
+        path: ~/.cache/composer
+        key: ${{ runner.os }}-composer-${{ hashFiles('backend/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
 
-    - name: Composer install
-      uses: ramsey/composer-install@v2
-      with:
-        dependency-versions: ${{ matrix.dependencies }}
-        working-directory: ./backend
+    - name: Subir containers (Backend + MySQL)
+      run: docker compose up -d --build backend mysql
 
-    - name: Composer post install
-      run: composer run-script post-install-cmd --no-interaction
+    - name: Aguardar o MySQL ficar pronto
+      run: |
+        echo "Aguardando healthcheck do MySQL..."
+        until [ "$(docker inspect --format='{{json .State.Health.Status}}' atendimento_mysql)" == '"healthy"' ]; do
+          sleep 2
+        done
 
-    - name: Run PHPUnit
-      run: vendor/bin/phpunit
-      env:
-        DATABASE_TEST_URL: sqlite://./testdb.sqlite
+    - name: Instalar dependencias com Composer (com Cache)
+      run: |
+        docker compose run --rm \
+          -v ~/.cache/composer:/root/.composer/cache \
+          -e COMPOSER_CACHE_DIR=/root/.composer/cache \
+          backend composer install --no-interaction --prefer-dist
+
+    - name: Executar PHPUnit
+      run: docker compose exec -T backend vendor/bin/phpunit
+
+    - name: Encerrar containers
+      if: always()
+      run: docker compose down
 
   coding-standard:
     name: Coding Standard & Static Analysis
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: ./backend
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3'
-        extensions: mbstring, intl
-        coverage: none
-        tools: cs2pr, phpstan:1.10
+    - name: Subir container Backend
+      run: docker compose up -d --build backend
 
-    - name: Composer install
-      uses: ramsey/composer-install@v2
-      with:
-        working-directory: ./backend
+    - name: Instalar dependencias com Composer
+      run: docker compose exec -T backend composer install --no-interaction --prefer-dist
 
-    - name: Run PHP CodeSniffer
-      run: vendor/bin/phpcs --report=checkstyle | cs2pr
+    - name: Executar PHP CodeSniffer
+      run: docker compose exec -T backend vendor/bin/phpcs
 
-    - name: Run phpstan
+    - name: Executar PHPStan
       if: always()
-      run: vendor/bin/phpstan
+      run: docker compose exec -T backend vendor/bin/phpstan
+
+    - name: Encerrar containers
+      if: always()
+      run: docker compose down
