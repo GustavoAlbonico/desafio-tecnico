@@ -7,7 +7,7 @@ class PacientesSeed extends BaseSeed
 {
     public function run(): void
     {
-        $json = file_get_contents(CONFIG . 'seeds/data/pacientes.json');
+        $json = file_get_contents(CONFIG . 'Seeds/data/pacientes.json');
         $data = json_decode($json, true);
 
         $exists = $this->fetchRow('SELECT 1 FROM pacientes LIMIT 1');

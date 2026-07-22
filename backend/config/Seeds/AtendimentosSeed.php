@@ -16,7 +16,7 @@ class AtendimentosSeed extends BaseSeed
 
     public function run(): void
     {
-        $json = file_get_contents(CONFIG . 'seeds/data/atendimentos.json');
+        $json = file_get_contents(CONFIG . 'Seeds/data/atendimentos.json');
         $data = json_decode($json, true);
 
         $exists = $this->fetchRow('SELECT 1 FROM atendimentos LIMIT 1');

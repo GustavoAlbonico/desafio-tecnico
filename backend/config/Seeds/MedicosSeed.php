@@ -7,7 +7,7 @@ class MedicosSeed extends BaseSeed
 {
     public function run(): void
     {
-        $json = file_get_contents(CONFIG . 'seeds/data/medicos.json');
+        $json = file_get_contents(CONFIG . 'Seeds/data/medicos.json');
         $data = json_decode($json, true);
 
         $exists = $this->fetchRow('SELECT 1 FROM medicos LIMIT 1');
