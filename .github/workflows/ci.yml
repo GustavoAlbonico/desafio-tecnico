@@ -51,7 +51,7 @@ jobs:
           --entrypoint "" \
           -v ~/.cache/composer:/root/.composer/cache \
           -e COMPOSER_CACHE_DIR=/root/.composer/cache \
-          backend composer install --no-interaction --prefer-dist
+          backend composer install --no-interaction --prefer-dist --no-scripts
 
     - name: Executar PHPUnit
       run: docker compose exec -T backend vendor/bin/phpunit
