@@ -109,14 +109,13 @@ return [
         ],
 
         'test' => [
-            'className' => Connection::class,
-            'driver' => Mysql::class,
-            'persistent' => false,
-            'timezone' => 'UTC',
-            'flags' => [],
-            'cacheMetadata' => true,
-            'quoteIdentifiers' => false,
-            'log' => false,
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'host' => 'mysql',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'db_atendimentos_test',
+            'port' => '3306',
         ],
     ],
 
