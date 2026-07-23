@@ -263,7 +263,7 @@ Formulário com:
 
 # ⭐ Diferenciais Implementados
 
-- Docker
+- Interface responsiva
 - Docker Compose
 - Migrations
 - Seeders
