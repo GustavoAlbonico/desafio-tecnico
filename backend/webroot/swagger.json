@@ -254,8 +254,8 @@
                     }
                 }
             },
-            "patch": {
-                "operationId": "atendimentos:edit:patch",
+            "put": {
+                "operationId": "atendimentos:edit:put",
                 "summary": "Atualiza um atendimento existente",
                 "description": "",
                 "tags": [
@@ -716,8 +716,8 @@
                     }
                 }
             },
-            "patch": {
-                "operationId": "medicos:edit:patch",
+            "put": {
+                "operationId": "medicos:edit:put",
                 "summary": "Atualiza um m\u00e9dico existente",
                 "description": "",
                 "tags": [
@@ -1193,8 +1193,8 @@
                     }
                 }
             },
-            "patch": {
-                "operationId": "pacientes:edit:patch",
+            "put": {
+                "operationId": "pacientes:edit:put",
                 "summary": "Atualiza um paciente existente",
                 "description": "",
                 "tags": [
