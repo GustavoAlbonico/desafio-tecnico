@@ -6,6 +6,10 @@ use Cake\Datasource\Paging\PaginatedResultSet;
 use Cake\Event\EventInterface;
 use Cake\Log\Log;
 
+/**
+ * Responsável por configurar os requests/response relacionados a API
+ * 
+ */
 class ApiController extends AppController
 {
     public function initialize(): void

@@ -5,6 +5,9 @@ namespace App\Repository\Interface;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Paging\PaginatedInterface;
 
+/**
+ * Interface padrão para repositórios seguirem a base com mesmo padrão
+ */
 interface IRepository {
     public function findAll():PaginatedInterface;
     public function findById(int $id):?EntityInterface;

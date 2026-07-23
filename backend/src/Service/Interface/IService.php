@@ -5,6 +5,9 @@ namespace App\Service\Interface;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Paging\PaginatedInterface;
 
+/**
+ * Interface padrão para services seguirem a base com mesmo padrão
+ */
 interface IService {
     public function list(): PaginatedInterface;
     public function findById(int $id): ?EntityInterface;
