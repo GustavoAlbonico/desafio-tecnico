@@ -87,9 +87,9 @@ export class AtendimentoListPage {
     { reference: 'medico', columnName: 'Médico', value: (item) => item.medicoNome, },
   ];
 
-  protected tableActions: TableAction[] = [
-    { name: 'editar', icon: 'edit', label: 'Editar' },
-    { name: 'excluir', icon: 'delete', label: 'Excluir' },
+  protected tableActions: TableAction<AtendimentoListModel>[] = [
+    { name: 'editar', icon: 'edit', label: 'Editar', isVisible: (item) => item.status == StatusAtendimento.Agendado },
+    { name: 'excluir', icon: 'delete', label: 'Excluir', isVisible: () => true},
   ];
 
   protected tableSortSettings: TableSortSettings = {
