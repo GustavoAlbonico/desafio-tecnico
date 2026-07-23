@@ -95,7 +95,8 @@ class AtendimentosRepository implements IRepository
             ->find()
             ->where([
                 'medico_id' => $id,
-                'data_atendimento' =>  $dataAtendimento
+                'data_atendimento' =>  $dataAtendimento,
+                'status' => 1
             ])
             ->count();
     }
