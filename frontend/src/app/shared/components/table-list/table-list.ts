@@ -18,7 +18,7 @@ export class TableList<T> {
   items = input<T[]>([]);
   listSettings = input<TableListSettings<T>[]>([]);
   sortSettings = input<TableSortSettings>();
-  actions = input<TableAction[]>([]);
+  actions = input<TableAction<T>[]>([]);
   sortChange = output<Sort>();
   loading = input<boolean>(true);
 
