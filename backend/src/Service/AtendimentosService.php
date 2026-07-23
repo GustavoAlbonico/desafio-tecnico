@@ -20,6 +20,13 @@ class AtendimentosService implements IService {
 
     private const DAILY_DOCTOR_APPOINTMENT_LIMIT = 15;
 
+    /**
+     * Instancias de repositories utilizados (são instanciados via injeção de dependência am Application.php)
+     *
+     * @param AtendimentosRepository $atendimentosRepository
+     * @param MedicosRepository $medicosRepository
+     * @param PacientesRepository $pacientesRepository
+     */
     public function __construct(
         private AtendimentosRepository $atendimentosRepository,
         private MedicosRepository $medicosRepository,
@@ -27,6 +34,11 @@ class AtendimentosService implements IService {
     ) {
     }
 
+    /**
+     * Chama o repository passando os parametros de paginação e queryParam
+     *
+     * @return PaginatedInterface
+     */
     public function list(): PaginatedInterface{
         return $this->atendimentosRepository
             ->filters($this->filters)
@@ -34,11 +46,23 @@ class AtendimentosService implements IService {
             ->findAll();
     }
 
+    /**
+     * Chama o repository para buscar o atendimento com base no id passado
+     *
+     * @param integer $id
+     * @return Atendimento|null
+     */
     public function findById(int $id): ?Atendimento{
         return $this->atendimentosRepository->findById($id);
     }
 
-    public function create(array $data): Atendimento | bool{
+    /**
+     * Faz as validações basicas e de entidade antes de pesistir os dados ao criar
+     *
+     * @param array $data
+     * @return Atendimento | bool
+     */
+    public function create(array $data): Atendimento | bool {
         $atendimentoEntity = $this->atendimentosRepository->patchEntity(null,$data);
 
         $this->validarEntidade($atendimentoEntity);
@@ -50,7 +74,14 @@ class AtendimentosService implements IService {
         return $this->atendimentosRepository->create($atendimentoEntity);
     }
 
-    public function update(int $id, array $data): Atendimento | bool{
+    /**
+     * Faz as validações basicas e de entidade antes de pesistir os dados ao editar
+     *
+     * @param integer $id
+     * @param array $data
+     * @return Atendimento | bool
+     */
+    public function update(int $id, array $data): Atendimento | bool {
         $atendimento = $this->atendimentosRepository->findById($id);
 
         if(!$atendimento){
@@ -68,6 +99,13 @@ class AtendimentosService implements IService {
         return $this->atendimentosRepository->update($atendimentoEntity);
     }
 
+    /**
+     * Faz as validações basicas antes de confirmar a remoção do registro
+     *
+     * @param integer $id
+     * @return boolean
+     */
+
     public function delete(int $id): bool{
         $atendimentoEntity = $this->atendimentosRepository->findById($id);
 
@@ -78,16 +116,37 @@ class AtendimentosService implements IService {
         return $this->atendimentosRepository->delete($atendimentoEntity);
     }
 
+    /**
+     * Seta os parametros de paginação
+     * Utilizado em findAll()
+     *
+     * @param array $paginate
+     * @return self
+     */
     public function paginate(array $paginate):self{
         $this->paginate = $paginate;
         return $this;
     }
 
+    /**
+     * Seta os parametros de filtro que vem via queryParams
+     * Utilizado em findAll()
+     *
+     * @param array $filters
+     * @return self
+     */
     public function filters(array $filters):self{
         $this->filters = $filters;
         return $this;
     }
 
+    /**
+     * Faz a validação da entidade sobre as regras de negocio ao editar ou criar um novo registro
+     *
+     * @param Atendimento $atendimentoEntity
+     * @param boolean $isEdit
+     * @return void
+     */
     private function validarEntidade(Atendimento $atendimentoEntity, bool $isEdit = false):void {
  
         /* validando data de atendimento */
