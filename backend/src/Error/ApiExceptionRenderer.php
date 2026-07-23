@@ -12,6 +12,10 @@ use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
+/**
+ * Classe reponsável por pegar qualquer exception lançada dentro do sistema e
+ * responder de forma amigavel sem expor nada critico
+ */
 class ApiExceptionRenderer extends WebExceptionRenderer
 {
     public function render(): ResponseInterface

@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+      
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testsuite:
+    name: Run Test Suite
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Baixar codigo do repositorio
+      uses: actions/checkout@v4
+
+    - name: Cache de pacotes do Composer
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/composer
+        key: ${{ runner.os }}-composer-${{ hashFiles('backend/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Subir containers (Backend + MySQL)
+      run: docker compose up -d --build backend mysql
+
+    - name: Aguardar o MySQL ficar pronto
+      run: |
+        echo "Aguardando healthcheck do MySQL..."
+        until [ "$(docker inspect --format='{{json .State.Health.Status}}' atendimento_mysql)" == '"healthy"' ]; do
+          sleep 2
+        done
+
+    - name: Instalar dependencias com Composer (com Cache)
+      run: |
+        docker compose run --rm \
+          --entrypoint "" \
+          -v ~/.cache/composer:/root/.composer/cache \
+          -e COMPOSER_CACHE_DIR=/root/.composer/cache \
+          backend composer install --no-interaction --prefer-dist --no-scripts
+
+    - name: Executar PHPUnit
+      run: docker compose exec -T backend vendor/bin/phpunit
+
+    - name: Encerrar containers
+      if: always()
+      run: docker compose down

@@ -53,7 +53,7 @@ class PacientesController extends ApiController
     #[OpenApiOperation(summary: 'Cadastra um novo paciente')]
     #[OpenApiResponse(statusCode: '201', description: 'Paciente criado com sucesso', ref: '#/components/schemas/ApiPacienteResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível criar o paciente', ref: '#/components/schemas/ApiErrorResponse')]
-    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiEntityErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function add(PacientesService $pacientesService)
     {
@@ -86,7 +86,7 @@ class PacientesController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Remove um paciente')]
-    #[OpenApiResponse(statusCode: '200', description: 'Paciente removido com sucesso', ref: '#/components/schemas/ApiPacienteResponse')]
+    #[OpenApiResponse(statusCode: '200', description: 'Paciente removido com sucesso', ref: '#/components/schemas/ApiDeleteResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o paciente', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Paciente não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '409', description: 'Não é possível excluir o registro pois existem dados relacionados', ref: '#/components/schemas/ApiErrorResponse')]

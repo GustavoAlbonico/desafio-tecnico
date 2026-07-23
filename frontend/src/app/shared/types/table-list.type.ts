@@ -9,10 +9,11 @@ export interface TableListSettings<T> {
   pipe?: TableColumnPipe
 }
 
-export interface TableAction {
+export interface TableAction<T> {
   name: string,
   icon: string,
   label: string,
+  isVisible: (item: T) => boolean
 }
 
 export interface TableActionEvent<T> {

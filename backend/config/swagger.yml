@@ -39,10 +39,10 @@ components:
           type: string
         status:
           type: integer
-        paciente:
-          $ref: "#/components/schemas/PacienteResumo"
-        medico:
-          $ref: "#/components/schemas/MedicoResumo"
+        paciente_nome:
+          type: string 
+        medico_nome: 
+          type: string 
           
     ApiPagination:
       type: object
@@ -57,9 +57,36 @@ components:
     ApiErrorResponse:
       type: object
       properties:
-        success: { type: boolean, example: false }
-        message: { type: string }
-        errors:  { type: array, nullable: true, items : { type: array }, example: null}
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+        errors:
+          nullable: true
+          enum: [null]
+          example: null
+
+    ApiEntityErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: 'Entidade .... está inválida, favor verificar!'
+        errors:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+            status:
+              enum: 'Status inválido. Valores aceitos: 1 (Agendado), 2 (Concluido), 3 (Cancelado).'
+            valor_consulta:
+              valor: 'Valor precisa ser maior que zero!'
 
     ApiSuccessResponse:
       type: object
@@ -70,6 +97,16 @@ components:
         message:
           type: string
 
+    ApiDeleteResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiSuccessResponse"
+        - type: object
+          properties:
+            errors:
+              nullable: true
+              enum: [null]
+              example: null
+            
     ApiListOfOptionsResponse:
         allOf:
           - $ref: "#/components/schemas/ApiSuccessResponse"
@@ -80,7 +117,8 @@ components:
                 additionalProperties:
                   type: string
                 example:
-                  "id": "descricao"
+                  "id": 1
+                  "nome": "josé"
 
     ApiPacientesListResponse:
       allOf:

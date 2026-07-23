@@ -8,6 +8,10 @@
   <form [formGroup]="atendimentoForm" (submit)="onSaveEntity()">
     <div class="form-container">
 
+      @if(loading()){
+        <app-loading-spinner/>
+      }
+
       <h3 class="form-title">
         Formulário
       </h3>
@@ -79,7 +83,7 @@
       </div>
 
       <div class="form-actions">
-        @if(loading()){
+        @if(saveLoading()){
           <mat-progress-bar class="form-loading" mode="query"></mat-progress-bar>
         }
 
@@ -88,7 +92,7 @@
           matButton="filled"  
           class="filter-button"
           type="submit"
-          [disabled]="loading()"
+          [disabled]="saveLoading()"
         >
           Salvar
         </button>

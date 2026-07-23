@@ -22,6 +22,7 @@ import { EntitySelect } from '../../../../shared/components/entity-select/entity
 import { formatDateToString, formatStringDate, formatStringDateToDate } from '../../../../shared/constants/format-date.constant';
 import { MatProgressBar } from "@angular/material/progress-bar";
 import { finalize } from 'rxjs';
+import { LoadingSpinner } from "../../../../shared/components/loading-spinner/loading-spinner";
 
 @Component({
   selector: 'app-atendimento-form.page',
@@ -35,7 +36,8 @@ import { finalize } from 'rxjs';
     MatSelectModule,
     MatOption,
     ReactiveFormsModule,
-    MatProgressBar
+    MatProgressBar,
+    LoadingSpinner
 ],
   templateUrl: './atendimento-form.page.html',
   styleUrl: './atendimento-form.page.scss',
@@ -59,7 +61,8 @@ export class AtendimentoFormPage {
     medico_id: [null as number | null, Validators.required],
   });
   
-  protected loading = signal(false);
+  protected loading = signal(true);
+  protected saveLoading = signal(false);
   protected isEdit = computed(() => this.atendimentoId()); 
 
   protected readonly getControlError = getControlError;
@@ -75,6 +78,9 @@ export class AtendimentoFormPage {
       this.atendimentoId.set(id ? Number(id) : null);
 
       this.atendimentoService.getById(this.atendimentoId()!)
+      .pipe(
+          finalize(() => this.loading.set(false))
+      )
       .subscribe({
         next: (atendimento) => {
             this.atendimentoForm.patchValue({
@@ -84,6 +90,7 @@ export class AtendimentoFormPage {
         },
       })
     } else { /* Não valida status se for criar */
+      this.loading.set(false);
       this.atendimentoForm.get('status')?.clearValidators();
       this.atendimentoForm.get('status')?.updateValueAndValidity();
     }
@@ -113,11 +120,11 @@ export class AtendimentoFormPage {
     };
 
     if (this.isEdit()) {
-      this.loading.set(true);
+      this.saveLoading.set(true);
 
       this.atendimentoService.update(this.atendimentoId()!, atendimentoApiModel)
         .pipe(
-          finalize(() => this.loading.set(false))
+          finalize(() => this.saveLoading.set(false))
         )
         .subscribe({
           next: (response) => {
@@ -131,11 +138,11 @@ export class AtendimentoFormPage {
         });
 
     } else {
-      this.loading.set(true);
+      this.saveLoading.set(true);
 
       this.atendimentoService.create(atendimentoApiModel)
         .pipe(
-            finalize(() => this.loading.set(false))
+            finalize(() => this.saveLoading.set(false))
         )
         .subscribe({
           next: (response) => {

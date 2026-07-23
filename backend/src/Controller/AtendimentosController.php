@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
-use OpenApi\Attributes as OA;
 use App\Service\AtendimentosService;
 use SwaggerBake\Lib\Attribute\OpenApiOperation;
 use SwaggerBake\Lib\Attribute\OpenApiPaginator;
@@ -51,7 +50,7 @@ class AtendimentosController extends ApiController
     #[OpenApiOperation(summary: 'Cadastra um novo atendimento')]
     #[OpenApiResponse(statusCode: '201', description: 'Atendimento criado com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível criar o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
-    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiEntityErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function add(AtendimentosService $atendimentosService)
     {
@@ -69,7 +68,7 @@ class AtendimentosController extends ApiController
     #[OpenApiResponse(statusCode: '200', description: 'Atendimento editado com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível editar o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Atendimento não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
-    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiEntityErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function edit(AtendimentosService $atendimentosService, int $id)
     {
@@ -84,7 +83,7 @@ class AtendimentosController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Remove um atendimento')]
-    #[OpenApiResponse(statusCode: '200', description: 'Atendimento removido com sucesso', ref: '#/components/schemas/ApiAtendimentoResponse')]
+    #[OpenApiResponse(statusCode: '200', description: 'Atendimento removido com sucesso', ref: '#/components/schemas/ApiDeleteResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o atendimento', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Atendimento não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]

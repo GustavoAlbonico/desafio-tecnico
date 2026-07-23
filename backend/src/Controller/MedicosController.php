@@ -54,7 +54,7 @@ class MedicosController extends ApiController
     #[OpenApiOperation(summary: 'Cadastra um novo médico')]
     #[OpenApiResponse(statusCode: '201', description: 'Médicos criado com sucesso', ref: '#/components/schemas/ApiMedicosResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível criar o médico', ref: '#/components/schemas/ApiErrorResponse')]
-    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiEntityErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function add(MedicosService $medicosService)
     {
@@ -72,7 +72,7 @@ class MedicosController extends ApiController
     #[OpenApiResponse(statusCode: '200', description: 'Médicos editado com sucesso', ref: '#/components/schemas/ApiMedicosResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível editar o médico', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Médicos não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
-    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiErrorResponse')]
+    #[OpenApiResponse(statusCode: '422', description: 'Dados inválidos', ref: '#/components/schemas/ApiEntityErrorResponse')]
     #[OpenApiResponse(statusCode: '500', description: 'Ocorreu um erro inesperado', ref: '#/components/schemas/ApiErrorResponse')]
     public function edit(MedicosService $medicosService, int $id)
     {
@@ -87,7 +87,7 @@ class MedicosController extends ApiController
     }
 
     #[OpenApiOperation(summary: 'Remove um médico')]
-    #[OpenApiResponse(statusCode: '200', description: 'Médicos removido com sucesso', ref: '#/components/schemas/ApiMedicosResponse')]
+    #[OpenApiResponse(statusCode: '200', description: 'Médicos removido com sucesso', ref: '#/components/schemas/ApiDeleteResponse')]
     #[OpenApiResponse(statusCode: '400', description: 'Não foi possível excluir o médico', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '404', description: 'Médicos não encontrado', ref: '#/components/schemas/ApiErrorResponse')]
     #[OpenApiResponse(statusCode: '409', description: 'Não é possível excluir o registro pois existem dados relacionados', ref: '#/components/schemas/ApiErrorResponse')]

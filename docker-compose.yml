@@ -15,7 +15,7 @@ services:
       - DB_NAME=db_atendimentos
       - DB_USER=root
       - DB_PASSWORD=root
-    entrypoint: /var/www/html/entrypoint.sh
+    entrypoint: ["sh", "/var/www/html/entrypoint.sh"]
 
   mysql:
     image: mysql:8.0
@@ -28,6 +28,7 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./backend/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
       timeout: 5s
