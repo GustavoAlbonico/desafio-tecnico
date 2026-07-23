@@ -217,7 +217,7 @@ GET /api/atendimentos?sort=data_atendimento&direction=desc
 ### Busca
 
 ```http
-GET /api/atendimentos?paciente=joao
+GET /api/atendimentos?paciente_id=2
 ```
 
 ---
