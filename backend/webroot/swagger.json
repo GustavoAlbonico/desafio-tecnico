@@ -161,7 +161,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                            "$ref": "#\/components\/schemas\/ApiEntityErrorResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -254,8 +254,8 @@
                     }
                 }
             },
-            "put": {
-                "operationId": "atendimentos:edit:put",
+            "patch": {
+                "operationId": "atendimentos:edit:patch",
                 "summary": "Atualiza um atendimento existente",
                 "description": "",
                 "tags": [
@@ -344,7 +344,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                            "$ref": "#\/components\/schemas\/ApiEntityErrorResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -395,7 +395,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiAtendimentoResponse"
+                                            "$ref": "#\/components\/schemas\/ApiDeleteResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -580,7 +580,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                            "$ref": "#\/components\/schemas\/ApiEntityErrorResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -716,8 +716,8 @@
                     }
                 }
             },
-            "put": {
-                "operationId": "medicos:edit:put",
+            "patch": {
+                "operationId": "medicos:edit:patch",
                 "summary": "Atualiza um m\u00e9dico existente",
                 "description": "",
                 "tags": [
@@ -805,7 +805,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                            "$ref": "#\/components\/schemas\/ApiEntityErrorResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -856,7 +856,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiMedicosResponse"
+                                            "$ref": "#\/components\/schemas\/ApiDeleteResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -1057,7 +1057,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiErrorResponse"
+                                            "$ref": "#\/components\/schemas\/ApiEntityErrorResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -1193,8 +1193,8 @@
                     }
                 }
             },
-            "put": {
-                "operationId": "pacientes:edit:put",
+            "patch": {
+                "operationId": "pacientes:edit:patch",
                 "summary": "Atualiza um paciente existente",
                 "description": "",
                 "tags": [
@@ -1334,7 +1334,7 @@
                                 "schema": {
                                     "allOf": [
                                         {
-                                            "$ref": "#\/components\/schemas\/ApiPacienteResponse"
+                                            "$ref": "#\/components\/schemas\/ApiDeleteResponse"
                                         }
                                     ],
                                     "type": "object"
@@ -1446,6 +1446,49 @@
                     }
                 ]
             },
+            "ApiDeleteResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#\/components\/schemas\/ApiSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "errors": {
+                                "nullable": true,
+                                "enum": [
+                                    null
+                                ],
+                                "example": null
+                            }
+                        }
+                    }
+                ]
+            },
+            "ApiEntityErrorResponse": {
+                "properties": {
+                    "success": {
+                        "example": false,
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "example": "Entidade .... est\u00e1 inv\u00e1lida, favor verificar!",
+                        "type": "string"
+                    },
+                    "errors": {
+                        "example": {
+                            "status": {
+                                "enum": "Status inv\u00e1lido. Valores aceitos: 1 (Agendado), 2 (Concluido), 3 (Cancelado)."
+                            },
+                            "valor_consulta": {
+                                "valor": "Valor precisa ser maior que zero!"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
             "ApiErrorResponse": {
                 "properties": {
                     "success": {
@@ -1456,10 +1499,9 @@
                         "type": "string"
                     },
                     "errors": {
-                        "items": {
-                            "type": "array"
-                        },
-                        "type": "array"
+                        "enum": [
+                            null
+                        ]
                     }
                 },
                 "type": "object"
@@ -1478,7 +1520,8 @@
                                     "type": "string"
                                 },
                                 "example": {
-                                    "id": "descricao"
+                                    "id": 1,
+                                    "nome": "jos\u00e9"
                                 }
                             }
                         }
@@ -1651,11 +1694,11 @@
                     "status": {
                         "type": "integer"
                     },
-                    "paciente": {
-                        "$ref": "#\/components\/schemas\/PacienteResumo"
+                    "paciente_nome": {
+                        "type": "string"
                     },
-                    "medico": {
-                        "$ref": "#\/components\/schemas\/MedicoResumo"
+                    "medico_nome": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
